@@ -1,0 +1,6 @@
+*.pyc
+tmp/
+src/
+finalsource/
+logs/
+src2/
