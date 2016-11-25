@@ -40,7 +40,11 @@ class Building(Packer):
 		#执行扫描并生成xml
 		subdirs = pdata.subdir[:]
 		subdirs.extend(self.replace)
+		jsflpaths = []
 		for subdir in subdirs:
 			fname = self.modname+'_'+subdir
-			self.runOnce(pdata, pngnums, pngxy, subdir, fname, jsfl, cutout)
-			location = self.mv2finalSource(fdir, jsfl, fname)
+			jsflpath = self.runOnce(pdata, pngnums, pngxy, subdir, fname, jsfl, cutout)
+			jsflpaths.append(jsflpath)
+			# location = self.mv2finalSource(fdir, jsfl, fname)
+
+		return jsflpaths

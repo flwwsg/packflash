@@ -16,11 +16,29 @@ from code.dbody import DBody
 from code.packexp import *
 import threading
 
-def run(pack, jsfl, ttdir, fdir, pipeout):
-	pack.runAll(jsfl, ttdir, fdir)
+def runflashcc(pipein):
+	flag = os.read(pipein, 1024)
+	tmp = flag.decode('utf-8')
+	flist = tmp.split(',')
+	for fname in flist:
+		print(fname)
+		# os.system(fname)
+
+def run(pack, jsfl, ttdir, fdir, pipeout, pipein):
+	paths = pack.runAll(jsfl, ttdir, fdir)
 	print(pack.modname+' threading finish')
-	msg = 'ok'.encode()
-	os.write(pipeout, msg)
+
+	msg = ''
+	first = True
+	for path in paths:
+		if first:
+			tmp = path
+			first = False
+		else:
+			tmp = ','+path
+		msg += tmp
+	os.write(pipeout, msg.encode())
+	runflashcc(pipein)
 
 def init():
 	try:
@@ -38,7 +56,7 @@ srcdir = tmp['srcdir']
 fdir = tmp['fdir']
 tpath = tmp['tpath']
 filename = ''
-threads = []
+# threads = []
 pipes = []
 
 tmpsrcnames = helper.scanDir(tsrcdir)
@@ -73,13 +91,20 @@ for modpath in tmpsrcnames: #commandoxx, factoryxx ...
 			print('Processing Body')
 			pack = Body(modpath)
 	try:
-		newthread = threading.Thread(target=run,args=(pack,jsfl, ttdir, fdir, pipeout, )).start()
-		threads.append(newthread)
+		newthread = threading.Thread(target=run,args=(pack,jsfl, ttdir, fdir, pipeout, pipein, )).start()
+		# threads.append(newthread)
 		pipes.append(pipein)
 	except PackExp as e:
 		e.wlog()
 
-for pipein in pipes:
-	flag = os.read(pipein,32)
+# fnames = []
+# for pipein in pipes:
+# 	flag = os.read(pipein, 1024)
+# 	tmp = flag.decode('utf-8')
+# 	print(tmp)
+	
 
-cleanprocess(tpath, filename)
+# for fname in fnames:
+# 	flist = fname.split(',')
+# 	print(flist)
+# cleanprocess(tpath, filename)

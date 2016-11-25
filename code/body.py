@@ -144,8 +144,8 @@ class Body(Packer):
 			f53 = self.chkEmpty(a53, attacks)
 			if f42 and f53:
 				src = a31firstpng
-				helper.copyFile(src, a42)
-				helper.copyFile(src, a53)
+				helper.copyFile(src, src.replace('3_attack_1','4_attack_2'))
+				helper.copyFile(src, src.replace('3_attack_1','5_attack_3'))
 				# continue
 			
 			#6_die_1 is not empty
@@ -153,8 +153,8 @@ class Body(Packer):
 			find = self.chkEmpty(die, dies)
 			if not find:
 				src = helper.scanFile(die)[-1]
-				die7 = a31.replace('3_attack_1','7_die_2')
-				die8 = a31.replace('3_attack_1','8_die_3')
+				die7 = src.replace('6_die_1','7_die_2')
+				die8 = src.replace('6_die_1','8_die_3')
 				helper.copyFile(src, die7)
 				helper.copyFile(src, die8)
 				# continue
@@ -168,6 +168,6 @@ class Body(Packer):
 			f7 = self.chkEmpty(d8,dies)
 			if f6 and f7 and f8:
 				src =a31firstpng
-				helper.copyFile(src, d6)
-				helper.copyFile(src, d7)
-				helper.copyFile(src, d8)
+				helper.copyFile(src, src.replace('3_attack_1','6_die_1'))
+				helper.copyFile(src, src.replace('3_attack_1','7_die_2'))
+				helper.copyFile(src, src.replace('3_attack_1','8_die_3'))

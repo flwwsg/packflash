@@ -160,7 +160,8 @@ class Packer(object):
 		self.runItem(root, titem,pdata, pngnums, pngxy, dirname, cutpath)
 		PackData.savexml(root,helper.genPath(jsfl, modname+'.xml'))
 		fname = helper.genPath(jsfl, modname+'.jsfl')
-		os.system(fname)
+		return fname
+		# os.system(fname)
 
 	def runAll(self, jsfl, ttdir, fdir):
 		out = ttdir+'/'+helper.baseName(self.fpath)
@@ -186,8 +187,9 @@ class Packer(object):
 
 		PackData.savexml(root,helper.genPath(jsfl, self.modname+'.xml'))
 		fname = helper.genPath(jsfl, self.modname+'.jsfl')
-		os.system(fname)
+		# os.system(fname)
 		
-		location = self.mv2finalSource(fdir, jsfl)
-		copy2SVN(location, self.modtype, self.type)
+		# location = self.mv2finalSource(fdir, jsfl)
+		# copy2SVN(location, self.modtype, self.type)
+		return fname
 
