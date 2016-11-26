@@ -23,7 +23,7 @@ class Building(Packer):
 	def renameSubdir(self, src):
 		print('-'*80,'building.renameSubdir to be implemented\n','-'*80, sep='')
 
-	def runAll(self, jsfl, ttdir, fdir,flock):
+	def runAll(self, jsfl, ttdir, fdir):
 		self.renameSubdir(self.fpath)
 		out = ttdir+'/'+helper.baseName(self.fpath)
 		self.ttpack(self.fpath,out)       #xmlpaths = dict(1_2=xx.xml)
@@ -40,9 +40,6 @@ class Building(Packer):
 		#执行扫描并生成xml
 		subdirs = pdata.subdir[:]
 		subdirs.extend(self.replace)
-		jsflpaths = []
-
-		with flock:
 		for subdir in subdirs:
 			fname = self.modname+'_'+subdir
 			self.runOnce(pdata, pngnums, pngxy, subdir, fname, jsfl, cutout)

@@ -135,6 +135,8 @@ class PackData(object):
 	def wlabel(dirname, pngnums, status, replace, titem, index = 0):
 		layer = et.SubElement(titem,'layer',{'name':'label'})
 		pre = dirname.split('_')[-1]
+		if pre.startswith('0'):
+			pre = pre[1:]
 		if dirname in replace.keys():
 			item = pngnums[replace[dirname]]
 		else:

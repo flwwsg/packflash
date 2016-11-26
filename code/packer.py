@@ -153,7 +153,7 @@ class Packer(object):
 			PackData.wbackground(backpngs, titem)
 		
 
-	def runOnce(self, pdata, pngnums, pngxy, dirname, modname, jsfl, cutpath):
+	def runOnce(self, pdata, pngnums, pngxy, dirname, modname, jsfl, cutpath ):
 		pdata.genjsfl(modname,jsfl)
 		root = PackData.genroot(modname)
 		titem = PackData.witem(root)
@@ -162,7 +162,7 @@ class Packer(object):
 		fname = helper.genPath(jsfl, modname+'.jsfl')
 		os.system(fname)
 
-	def runAll(self, jsfl, ttdir, fdir, flock):
+	def runAll(self, jsfl, ttdir, fdir):
 		out = ttdir+'/'+helper.baseName(self.fpath)
 		self.ttpack(self.fpath,out)       #xmlpaths = dict(1_2=xx.xml)
 		cutout =out+ '_cut'
@@ -186,11 +186,8 @@ class Packer(object):
 
 		PackData.savexml(root,helper.genPath(jsfl, self.modname+'.xml'))
 		fname = helper.genPath(jsfl, self.modname+'.jsfl')
-
-		with flock:
-			os.system(fname)
+		os.system(fname)
 		
 		location = self.mv2finalSource(fdir, jsfl)
 		copy2SVN(location, self.modtype, self.type)
-		# return fname
 
