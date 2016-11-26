@@ -11,24 +11,26 @@ from code.dbody import DBody
 from code.packexp import *
 from code.preprocess import Preprocess
 from code.misc import genThread, FLOCK
+from code.cleanprocess import cleanprocess
 
-def run(pack, jsfl, ttdir, fdir, flock):
-	pack.runAll(jsfl, ttdir, fdir)
+def run(pack, jsfl, ttdir, fdir, flock, pipeout):
+	pack.runAll(jsfl, ttdir, fdir, flock)
+	msg = str(os.getpid())+' finish'
+	os.write(pipeout, msg.encode())
 
-def process(pprocess, flock):
+
+def process(pprocess, filenames, threads, flock, pipeout):
 	tsrcdir = pprocess.tspath
 	ttdir = pprocess.ttpath
 	jsfl = pprocess.kpjsfl
-	tpath = pprocess.tpath
 	finalpath = pprocess.finalpath
 
-	filename = ''
 	tmpsrcnames = scanDir(tsrcdir)
 	for modpath in tmpsrcnames: #commandoxx, factoryxx ...
 		subdir = scanDir(modpath)
 		count = len(subdir)
 		tmp = baseName(modpath)
-		filename = tmp + ',' + filename
+		filenames.append(tmp)
 		bn = tmp.split('#')[-1]
 		dota = bn[:4]
 		# print(modpath,count)
@@ -52,17 +54,24 @@ def process(pprocess, flock):
 			else:
 				print('Processing Body')
 				pack = Body(modpath)
-		# genThread(run, pack, jsfl, ttdir, finalpath, flock)
-		run(pack, jsfl, ttdir, finalpath, flock)
-# cleanprocess(tpath, filename)
+		newthread = genThread(run, pack, jsfl, ttdir, finalpath, flock, pipeout)
+		threads.append(newthread)
+		# run(pack, jsfl, ttdir, finalpath, flock)
 
-pprocess = Preprocess()
-pprocess.preprocess()
-process(pprocess,FLOCK)
+threads = []
+filenames = []
+pipein, pipeout = os.pipe()
 
-# try:
-# 	pprocess = Preprocess()
-# 	pprocess.preprocess()
-# 	process(pprocess)
-# except PackExp as e:
-# 	e.wlog()
+try:
+	pprocess = Preprocess()
+	pprocess.preprocess()
+	process(pprocess, filenames, threads, FLOCK, pipeout)
+
+	#wait for thread exited
+	for thread in threads:
+		msg = os.read(pipein, 32).decode()
+		print(msg)
+	cleanprocess(pprocess.tpath, ','.join(filenames))
+except PackExp as e:
+	e.wlog()
+

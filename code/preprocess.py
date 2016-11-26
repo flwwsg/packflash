@@ -3,7 +3,7 @@
 '''preprocess.py'''
 
 from code.packHelper import *
-# from code.packexp import *
+from code.packexp import *
 
 class Preprocess(object):
 	"""rename directory and copy files"""
@@ -60,8 +60,8 @@ class Preprocess(object):
 			newdest = genPath(dest, mod)
 			
 			if os.path.exists(newdest):
-				continue
-				# raise LastOpNotClean()
+				# continue
+				raise LastOpNotClean()
 			copyFiles(src, newdest)
 			self.reFiles(newdest)
 

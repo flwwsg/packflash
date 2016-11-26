@@ -6,8 +6,6 @@
 from code.packHelper import *
 from code.packer import *
 
-# from code.cleanprocess import cleanprocess
-
 class Building(Packer):
 	"""docstring for Soiler"""
 	def __init__(self, mod):
@@ -22,7 +20,7 @@ class Building(Packer):
 	def renameSubdir(self, src):
 		print('-'*80,'building.renameSubdir to be implemented\n','-'*80, sep='')
 
-	def runAll(self, jsfl, ttdir, fdir):
+	def runAll(self, jsfl, ttdir, fdir, flock):
 		self.renameSubdir(self.fpath)
 		out = ttdir+'/'+baseName(self.fpath)
 		self.ttpack(self.fpath,out)       #xmlpaths = dict(1_2=xx.xml)
@@ -37,15 +35,21 @@ class Building(Packer):
 		pdata.getitems(out, self.replace)
 
 		#执行扫描并生成xml
+		cmds = []
 		for subdir in pdata.subdir:
 
 			fname = self.modname+'_'+subdir
-			pdata.genjsfl(fname,jsfl)
+			fullname = self.fullname+'_'+subdir     #for multiple threading 
+			pdata.genjsfl(fullname,jsfl)
 			pdata.genroot(fname)
 			pdata.witem()
 			pdata.wbody(pdata, subdir, self.replace)
-			fpath = genPath(jsfl,fname+'.xml')
-			pdata.savexml(genPath(jsfl,fname+'.xml'))
-	
-			os.system(fpath[:-3]+'jsfl')
-			location = self.mv2finalSource(fdir, jsfl, fname)
+			fpath = genPath(jsfl,fullname+'.xml')
+			pdata.savexml(fpath)
+			
+			cmds.append(fpath[:-3]+'jsfl')
+
+		with flock:
+			for cmd in cmds:
+				os.system(cmd)
+				location = self.mv2finalSource(fdir, jsfl, fname)

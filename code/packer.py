@@ -15,6 +15,7 @@ class Packer(object):
 		self.type = modtype
 		self.fpath = fpath
 		self.formatDir(fpath)
+		self.fullname = '-'.join([self.modname, self.modtype, self.type])
 
 		#rename files
 	def formatDir(self,fpath):
@@ -81,7 +82,7 @@ class Packer(object):
 		copyFile(flasrc,fladest)
 		return swfdest
 		
-	def runAll(self, jsfl, ttdir, fdir):
+	def runAll(self, jsfl, ttdir, fdir, flock):
 		out = ttdir+'/'+baseName(self.fpath)
 		self.ttpack(self.fpath,out)       #xmlpaths = dict(1_2=xx.xml)
 		cutout =out+ '_cut'
@@ -93,19 +94,19 @@ class Packer(object):
 		pdata = PackData(cutout)
 		pdata.countPics()
 		pdata.getitems(out, self.replace)
-		pdata.genjsfl(self.modname,jsfl)
+		pdata.genjsfl(self.fullname,jsfl)
 		pdata.genroot(self.modname)
 		pdata.witem()
 
 		for subdir in pdata.subdir:			
 			pdata.wbody(pdata, subdir, self.replace)
-		fname = genPath(jsfl,self.modname+'.xml')
+		fname = genPath(jsfl,self.fullname+'.xml')
 		pdata.savexml(fname)
 	
-		os.system(fname[:-3]+'jsfl')
-		
-		location = self.mv2finalSource(fdir, jsfl)
-		copy2SVN(location, self.modtype, self.type)
+		with flock:
+			os.system(fname[:-3]+'jsfl')
+			location = self.mv2finalSource(fdir, jsfl)
+			copy2SVN(location, self.modtype, self.type)
 
 	@classmethod
 	def ttcutimg(self,src):

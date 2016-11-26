@@ -25,18 +25,6 @@ class PackData(object):
 		files = scanFile(path,withpath=False)
 		return dict(subdir=dirs, status=dict(dir=status, file=files))
 
-	# def wxml(self, replace):
-	# 	root = self.genroot()
-	# 	titem = self.witem(root)
-	# 	self.wlabel(replace, titem)
-	# 	self.wpics(replace, titem)
-
-	# 	root = indent(root)
-	# 	et.ElementTree(root).write(self.jsfl+'/'+self.xmlname)
-	# 	return self.jsfl+'/'+self.xmlname.replace('.xml','.jsfl')
-
-
-	# @classmethod
 	def countPics(self): #modpath = command xxx
 		modpath = self.modpath
 		subdir = self.subdir
@@ -57,7 +45,6 @@ class PackData(object):
 				pngnums[dirname] =newstatus
 		self.pngnums = pngnums
 
-	# @classmethod
 	def getitems(self, ttxml,replace):
 		tmp = scanFile(ttxml)
 		xmlpath = dict()
@@ -78,8 +65,7 @@ class PackData(object):
 			pngxy[dirname] = PackData.getxy(xmlpath[newdirname])
 		self.pngxy = pngxy
 
-		#pngnums like pngnums['1_2']{'file':[], '1_idle': 24}
-
+	#pngnums like pngnums['1_2']{'file':[], '1_idle': 24}
 	def wlabel(self, dirname, replace, xitem):
 		layer = et.SubElement(xitem,'layer',{'name':'label'})
 		pre = dirname.split('_')[-1]
@@ -100,7 +86,6 @@ class PackData(object):
 		
 
 	# #pngxy like pngxy['1_2'] [{'xname':'xx', 'xpath':'1_idle','x':x, 'y':y}]
-	
 	def wpics(self, dirname, replace, xitem):
 		layer = et.SubElement(xitem,'layer',{'name':'pics'})
 
