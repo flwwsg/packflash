@@ -3,10 +3,7 @@
 
 '''dbody.py'''
 
-from code.packer import Packer
-import code.packHelper as helper
-from os import rename
-from os.path import exists
+from code.packer import *
 
 class DBody(Packer):
 	"""docstring for Body"""
@@ -39,30 +36,30 @@ class DBody(Packer):
 
 	def dealPng(self, dirsrc):
 				
-		dirs = helper.scanDir(dirsrc)
+		dirs = scanDir(dirsrc)
 		for tmpdir in dirs:
 			idle = tmpdir+'/'+'1_idle'
 			move = tmpdir+'/'+'2_move'
 			a31 = tmpdir+'/'+'3_attack_1'
 			for oldname, newname in zip([idle, move, a31],['2_idle','3_move','1_attack_1']):
-				if exists(oldname):
-					rename(oldname, tmpdir+'/'+newname)
+				if os.path.exists(oldname):
+					os.rename(oldname, tmpdir+'/'+newname)
 
 		newemptys = self.getEmpty(dirsrc)
 		
 		for item in newemptys:
-			bn = helper.baseName(item)
+			bn = baseName(item)
 			if bn == '7_die_2' or bn =='8_die_3':
 				src = item.replace(bn, '6_die_1')
 				find = self.chkEmpty(src, newemptys)
 				if not find:
-					helper.copyFiles(src, item, recur=False)
+					copyFiles(src, item, recur=False)
 				continue
 			if bn =='1_attack_1':
 				continue
 			a11 = item.replace(bn, '1_attack_1')
-			a11firstpng = helper.scanFile(a11)[0]
-			helper.copyFile(a11firstpng, a11firstpng.replace('1_attack_1', bn))
+			a11firstpng = scanFile(a11)[0]
+			copyFile(a11firstpng, a11firstpng.replace('1_attack_1', bn))
 
 		# exit()
 

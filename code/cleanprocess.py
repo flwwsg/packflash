@@ -1,16 +1,15 @@
 #!/usr/bin/env python
 #-*- coding: UTF-8 -*-
 
-import code.packHelper as helper
-import os
+from code.packHelper import *
 from code.packexp import SVNotFound
 
 def cleanprocess(tmpdir, body=''):
-	helper.rmDir(tmpdir)
-	receiver = helper.MYRECEIVER
-	subject = helper.SUCCSUBJECT
-	mbody = helper.SUCCBODY % body
-	helper.smail(receiver=receiver, subject=subject, mbody=mbody)
+	rmDir(tmpdir)
+	receiver = MYRECEIVER
+	subject = SUCCSUBJECT
+	mbody = SUCCBODY % body
+	smail(receiver=receiver, subject=subject, mbody=mbody)
 
 def getSvnAddr(fname,mtype, types):
 	root = os.getcwd()
@@ -31,4 +30,4 @@ def copy2SVN(src, mtype, types):
 		msg ='Can not find type of %s named %s in svn address' %(types, fname)
 		raise SVNotFound(msg)
 	else:
-		helper.copyFile(src, find+'/'+fname)
+		copyFile(src, find+'/'+fname)

@@ -3,13 +3,10 @@
 
 '''soilder.py'''
 
-from code.packer import Packer
-from code.packdata import PackData
-import code.packHelper as helper
-from os import rename
+from code.packer import *
 
 class Soldier(Packer):
-	"""docstring for Soiler"""
+	
 	def __init__(self,mod):
 		self.replace =dict()
 		self.replace['6_6'] = '2_0'
@@ -22,7 +19,7 @@ class Soldier(Packer):
 
 	def dealPng(self, src):
 		newemptys=self.getEmpty(src)
-		newexists = helper.nonemptyDir(src)
+		newexists = nonemptyDir(src)
 		# print(newemptys, newexists)
 
 		if not newemptys:
@@ -43,17 +40,17 @@ class Soldier(Packer):
 
 		#attack is empty
 		for attack in attacks:
-			adn = helper.baseName(attack)
+			adn = baseName(attack)
 			move = attack.replace(adn, '2_move')
 			find = self.chkEmpty(move, moves)
 			if not find:
-				lastpng = helper.scanFiles(move)[-1]
+				lastpng = scanFiles(move)[-1]
 				# print(lastpng)
-				dest =attack+'/'+helper.baseName(lastpng)
+				dest =attack+'/'+baseName(lastpng)
 				# print(dest)
-				helper.copyFile(lastpng, dest)
+				copyFile(lastpng, dest)
 				
 		for die in dies:
-			bn = helper.baseName(die)
+			bn = baseName(die)
 			die1 = die.replace(bn,'6_die_1')
-			helper.copyFiles(die1, die,recur=False)
+			copyFiles(die1, die,recur=False)

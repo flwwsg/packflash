@@ -11,9 +11,12 @@ Building	.\code\building.py	/^class Building(Packer):$/;"	c
 Building	.\run.py	/^from code.building import Building$/;"	i
 DBody	.\code\dbody.py	/^class DBody(Packer):$/;"	c
 DBody	.\run.py	/^from code.dbody import DBody$/;"	i
+DEBUG	.\code\misc.py	/^DEBUG = True$/;"	v
+DEBUG	.\code\sendmail.py	/^from code.misc import DEBUG$/;"	i
 DHead	.\code\dhead.py	/^class DHead(Packer):$/;"	c
 DHead	.\run.py	/^from code.dhead import DHead$/;"	i
-Head	.\code\body.py	/^from code.head import Head$/;"	i
+FLOCK	.\code\misc.py	/^FLOCK = threading.Lock()$/;"	v
+FLOCK	.\run.py	/^from code.misc import genThread, FLOCK$/;"	i
 Head	.\code\head.py	/^class Head(Packer):$/;"	c
 Head	.\run.py	/^from code.head import Head$/;"	i
 Image	.\code\packer.py	/^from PIL import Image, ImageDraw$/;"	i
@@ -21,25 +24,18 @@ ImageDraw	.\code\packer.py	/^from PIL import Image, ImageDraw$/;"	i
 LastOpNotClean	.\code\packexp.py	/^class LastOpNotClean(PackExp):$/;"	c
 MIMEMultipart	.\code\sendmail.py	/^from email.mime.multipart import MIMEMultipart$/;"	i
 MIMEText	.\code\sendmail.py	/^from email.mime.text import MIMEText$/;"	i
-MYRECEIVER	.\code\sendmail.py	/^MYRECEIVER = ['190971120@qq.com','2319406132@qq.com']$/;"	v
+MYRECEIVER	.\code\sendmail.py	/^	MYRECEIVER = ['190971120@qq.com','2319406132@qq.com']$/;"	v
+MYRECEIVER	.\code\sendmail.py	/^	MYRECEIVER = ['2319406132@qq.com']$/;"	v
 PICQUALITY	.\code\packdata.py	/^PICQUALITY = "80"$/;"	v
-PackData	.\code\building.py	/^from code.packdata import PackData$/;"	i
-PackData	.\code\head.py	/^from code.packdata import PackData$/;"	i
 PackData	.\code\packdata.py	/^class PackData(object):$/;"	c
 PackData	.\code\packer.py	/^from code.packdata import PackData$/;"	i
-PackData	.\code\soldier.py	/^from code.packdata import PackData$/;"	i
-PackData	.\run.py	/^from code.packdata import PackData$/;"	i
 PackData	.\test.py	/^from code.packdata import PackData$/;"	i
 PackExp	.\code\packexp.py	/^class PackExp(Exception):$/;"	c
 PackExp	.\test.py	/^from code.packexp import PackExp$/;"	i
-Packer	.\code\body.py	/^from code.packer import Packer$/;"	i
-Packer	.\code\building.py	/^from code.packer import Packer$/;"	i
-Packer	.\code\dbody.py	/^from code.packer import Packer$/;"	i
-Packer	.\code\dhead.py	/^from code.packer import Packer$/;"	i
-Packer	.\code\head.py	/^from code.packer import Packer$/;"	i
 Packer	.\code\packer.py	/^class Packer(object):$/;"	c
-Packer	.\code\soldier.py	/^from code.packer import Packer$/;"	i
-Packer	.\run.py	/^from code.packer import Packer$/;"	i
+Preprocess	.\code\preprocess.py	/^class Preprocess(object):$/;"	c
+Preprocess	.\run.py	/^from code.preprocess import Preprocess$/;"	i
+SUCCBODY	.\code\sendmail.py	/^SUCCBODY = '打包%s完成'$/;"	v
 SUCCSUBJECT	.\code\sendmail.py	/^SUCCSUBJECT = '打包完成'$/;"	v
 SVNotFound	.\code\cleanprocess.py	/^from code.packexp import SVNotFound$/;"	i
 SVNotFound	.\code\packexp.py	/^class SVNotFound(PackExp):$/;"	c
@@ -52,45 +48,31 @@ __init__	.\code\dbody.py	/^	def __init__(self, mod):$/;"	m	class:DBody
 __init__	.\code\dhead.py	/^	def __init__(self,mod):$/;"	m	class:DHead
 __init__	.\code\head.py	/^	def __init__(self,mod):$/;"	m	class:Head
 __init__	.\code\packdata.py	/^	def __init__(self, modpath):$/;"	m	class:PackData
-__init__	.\code\packer.py	/^	def __init__(self, types,fpath):$/;"	m	class:Packer
+__init__	.\code\packer.py	/^	def __init__(self, modtype,fpath):$/;"	m	class:Packer
 __init__	.\code\packexp.py	/^	def __init__(self, logs,fname='errors.txt'):$/;"	m	class:PackExp
 __init__	.\code\packexp.py	/^	def __init__(self, logs=''):$/;"	m	class:LastOpNotClean
 __init__	.\code\packexp.py	/^	def __init__(self,logs):$/;"	m	class:SVNotFound
+__init__	.\code\preprocess.py	/^	def __init__(self):$/;"	m	class:Preprocess
 __init__	.\code\soldier.py	/^	def __init__(self,mod):$/;"	m	class:Soldier
+args	.\code\misc.py	/^	args = 'a,b,c,d,e'$/;"	v
 backpng	.\test.py	/^backpng = PackData.wlabel(dirname,pngnums,pdata.status,dict(),titem)$/;"	v
 backpngs	.\test.py	/^backpngs = PackData.wpics(dirname, pngxy,dict(),out+'_cut', titem)$/;"	v
 baseName	.\code\packHelper.py	/^def baseName(path):$/;"	f
-bn	.\run.py	/^	bn = helper.baseName(modpath).split('#')[-1]$/;"	v
 chkEmpty	.\code\packer.py	/^	def chkEmpty(self, name, elist):$/;"	m	class:Packer
-chkPath	.\code\preprocess.py	/^def chkPath(path):$/;"	f
+chkPath	.\code\preprocess.py	/^	def chkPath(self, path):$/;"	m	class:Preprocess
 chkType	.\code\packHelper.py	/^def chkType(fn):$/;"	f
-cleanprocess	.\code\building.py	/^from code.cleanprocess import cleanprocess$/;"	i
-cleanprocess	.\code\cleanprocess.py	/^def cleanprocess(tmpdir):$/;"	f
-cleanprocess	.\run.py	/^from code.cleanprocess import cleanprocess$/;"	i
-code	.\code\body.py	/^import code.packHelper as helper$/;"	i
-code	.\code\building.py	/^import code.packHelper as helper$/;"	i
-code	.\code\cleanprocess.py	/^import code.packHelper as helper$/;"	i
-code	.\code\dbody.py	/^import code.packHelper as helper$/;"	i
-code	.\code\dhead.py	/^import code.packHelper as helper$/;"	i
-code	.\code\head.py	/^import code.packHelper as helper$/;"	i
-code	.\code\packdata.py	/^import code.packHelper as helper$/;"	i
-code	.\code\packer.py	/^import code.packHelper as helper$/;"	i
-code	.\code\packexp.py	/^import code.packHelper as helper$/;"	i
-code	.\code\preprocess.py	/^import code.packHelper as helper$/;"	i
-code	.\code\soldier.py	/^import code.packHelper as helper$/;"	i
-code	.\run.py	/^import code.packHelper as helper$/;"	i
+cleanprocess	.\code\cleanprocess.py	/^def cleanprocess(tmpdir, body=''):$/;"	f
 code	.\test.py	/^import code.packHelper as helper$/;"	i
 code	.\tmp.py	/^import code.packHelper as helper$/;"	i
 copy2SVN	.\code\cleanprocess.py	/^def copy2SVN(src, mtype, types):$/;"	f
 copy2SVN	.\code\packer.py	/^from code.cleanprocess import copy2SVN$/;"	i
-copy2tmpsrc	.\code\preprocess.py	/^def copy2tmpsrc(dirs, dest, name=None):$/;"	f
+copy2tmpsrc	.\code\preprocess.py	/^	def copy2tmpsrc(self,dirs, dest, name=None):$/;"	m	class:Preprocess
 copyFile	.\code\packHelper.py	/^def copyFile(src, dest):$/;"	f
 copyFiles	.\code\packHelper.py	/^def copyFiles(src, dest, recur=True,ignore=None):$/;"	f
 copySVN	.\test.py	/^from code.cleanprocess import copySVN$/;"	i
-count	.\run.py	/^	count = len(subdir)$/;"	v
 countDir	.\code\packHelper.py	/^def countDir(root):$/;"	f
 countFile	.\code\packHelper.py	/^def countFile(root):$/;"	f
-countPics	.\code\packdata.py	/^	def countPics(modpath, subdir, status): #modpath = command xxx$/;"	m	class:PackData
+countPics	.\code\packdata.py	/^	def countPics(self): #modpath = command xxx$/;"	m	class:PackData
 cutimg	.\code\packer.py	/^	def cutimg(self,data, imgfile, out):$/;"	m	class:Packer
 datetime	.\code\packexp.py	/^from datetime import datetime$/;"	i
 dealPng	.\code\body.py	/^	def dealPng(self, dirsrc):$/;"	m	class:Body
@@ -102,87 +84,59 @@ dest	.\tmp.py	/^dest = 'd:\/dev\/packflash\/tmp\/tempsource'$/;"	v
 dirName	.\code\packHelper.py	/^def dirName(path):$/;"	f
 dirname	.\test.py	/^dirname = '1_1'$/;"	v
 dirs	.\tmp.py	/^dirs = helper.scanDir(srcdir)$/;"	v
-dota	.\run.py	/^	dota = bn[:4]$/;"	v
 emptyDir	.\code\packHelper.py	/^def emptyDir(path):$/;"	f
 et	.\code\packdata.py	/^import xml.etree.ElementTree as et$/;"	i
 et	.\code\packer.py	/^import xml.etree.ElementTree as et$/;"	i
 etree	.\code\packdata.py	/^import xml.etree.ElementTree as et$/;"	i
 etree	.\code\packer.py	/^import xml.etree.ElementTree as et$/;"	i
-exists	.\code\dbody.py	/^from os.path import exists$/;"	i
-exists	.\code\dhead.py	/^from os.path import exists$/;"	i
-fdir	.\run.py	/^fdir = tmp['fdir']$/;"	v
 fn	.\test.py	/^fn = r'D:\\dev\\packflash\\tmp\\tempsource\\armor_factory-jz'$/;"	v
 formatDir	.\code\packer.py	/^	def formatDir(self,fpath):$/;"	m	class:Packer
-formatType	.\code\preprocess.py	/^def formatType(fn):$/;"	f
-genPath	.\code\packHelper.py	/^def genPath(root=None, path=None):$/;"	f
-genjsfl	.\code\packdata.py	/^	def genjsfl(modname, jsflpath):$/;"	m	class:PackData
-genroot	.\code\packdata.py	/^	def genroot(modname):   #modname = commando ...$/;"	m	class:PackData
+formatType	.\code\preprocess.py	/^	def formatType(self,fn):$/;"	m	class:Preprocess
+func	.\code\misc.py	/^	func = 'newfunc'$/;"	v
+genPath	.\code\packHelper.py	/^def genPath(root, path):$/;"	f
+genThread	.\code\misc.py	/^def genThread(func, *args):$/;"	f
+genThread	.\run.py	/^from code.misc import genThread, FLOCK$/;"	i
+genjsfl	.\code\packdata.py	/^	def genjsfl(self, modname, jsflpath):$/;"	m	class:PackData
+genroot	.\code\packdata.py	/^	def genroot(self, modname):   #modname = commando ...$/;"	m	class:PackData
 getEmpty	.\code\packer.py	/^	def getEmpty(self, mod):$/;"	m	class:Packer
+getModname	.\code\dbody.py	/^	def getModname(self):$/;"	m	class:DBody
+getModname	.\code\dhead.py	/^	def getModname(self):$/;"	m	class:DHead
 getPath	.\code\packexp.py	/^	def getPath(self):$/;"	m	class:PackExp
 getSvnAddr	.\code\cleanprocess.py	/^def getSvnAddr(fname,mtype, types):$/;"	f
 getachive	.\code\packdata.py	/^	def getachive(self,modpath):$/;"	m	class:PackData
-getitems	.\code\packdata.py	/^	def getitems(ttxml, subdir,replace):$/;"	m	class:PackData
-getxy	.\code\packdata.py	/^	def getxy(path):$/;"	m	class:PackData
-helper	.\code\body.py	/^import code.packHelper as helper$/;"	i
-helper	.\code\building.py	/^import code.packHelper as helper$/;"	i
-helper	.\code\cleanprocess.py	/^import code.packHelper as helper$/;"	i
-helper	.\code\dbody.py	/^import code.packHelper as helper$/;"	i
-helper	.\code\dhead.py	/^import code.packHelper as helper$/;"	i
-helper	.\code\head.py	/^import code.packHelper as helper$/;"	i
-helper	.\code\packdata.py	/^import code.packHelper as helper$/;"	i
-helper	.\code\packer.py	/^import code.packHelper as helper$/;"	i
-helper	.\code\packexp.py	/^import code.packHelper as helper$/;"	i
-helper	.\code\preprocess.py	/^import code.packHelper as helper$/;"	i
-helper	.\code\soldier.py	/^import code.packHelper as helper$/;"	i
-helper	.\run.py	/^import code.packHelper as helper$/;"	i
+getitems	.\code\packdata.py	/^	def getitems(self, ttxml,replace):$/;"	m	class:PackData
+getpath	.\code\preprocess.py	/^	def getpath(self):$/;"	m	class:Preprocess
+getxy	.\code\packdata.py	/^	def getxy(self, path):$/;"	m	class:PackData
 helper	.\test.py	/^import code.packHelper as helper$/;"	i
 helper	.\tmp.py	/^import code.packHelper as helper$/;"	i
 ibn	.\test.py	/^		ibn = helper.baseName(i)$/;"	v
 indent	.\code\packHelper.py	/^def indent(elem, level=0):$/;"	f
-init	.\run.py	/^def init():$/;"	f
-jsfl	.\run.py	/^jsfl = tmp['kpjsfl'] $/;"	v
 jsfl	.\test.py	/^jsfl = r'D:\\dev\\packflash\\tmp\\kpjsfl'$/;"	v
 mail	.\code\packexp.py	/^	def mail(self, receiver, subject, fname=None, mbody=None ):$/;"	m	class:PackExp
 mkDir	.\code\packHelper.py	/^def mkDir(paths):$/;"	f
 modname	.\test.py	/^modname = 'armor_factory'$/;"	v
 mv2finalSource	.\code\packer.py	/^	def mv2finalSource(self, fdir, jsfl, fname=None):$/;"	m	class:Packer
 nonemptyDir	.\code\packHelper.py	/^def nonemptyDir(path):$/;"	f
-os	.\code\building.py	/^import os$/;"	i
-os	.\code\cleanprocess.py	/^import os$/;"	i
 os	.\code\packHelper.py	/^import os $/;"	i
-os	.\code\packer.py	/^import os $/;"	i
-os	.\code\packexp.py	/^import os$/;"	i
-os	.\code\preprocess.py	/^import os $/;"	i
 os	.\test.py	/^import os$/;"	i
 os	.\tmp.py	/^import os $/;"	i
 out	.\test.py	/^out = r'd:\\dev\\packflash\\tmp\\texture\\armor_factory-jz'$/;"	v
-pack	.\run.py	/^			pack = Body(modpath)$/;"	v
-pack	.\run.py	/^			pack = DBody(modpath)$/;"	v
-pack	.\run.py	/^			pack = DHead(modpath)$/;"	v
-pack	.\run.py	/^			pack = Head(modpath)$/;"	v
-pack	.\run.py	/^		pack = Building(modpath)$/;"	v
-pack	.\run.py	/^		pack = Soldier(modpath)$/;"	v
 pdata	.\test.py	/^pdata = PackData(fn)$/;"	v
 pngnums	.\test.py	/^pngnums =PackData.countPics(fn,pdata.subdir,pdata.status)$/;"	v
 pngxy	.\test.py	/^pngxy = PackData.getitems(out,pdata.subdir,replace=dict())$/;"	v
-preprocess	.\code\preprocess.py	/^def preprocess():$/;"	f
-preprocess	.\run.py	/^from code.preprocess import preprocess$/;"	i
+pprocess	.\run.py	/^pprocess = Preprocess()$/;"	v
+preprocess	.\code\preprocess.py	/^	def preprocess(self):$/;"	m	class:Preprocess
 print_function	.\tmp.py	/^from __future__ import print_function$/;"	i
-reFiles	.\code\preprocess.py	/^def reFiles(dest):$/;"	f
-rename	.\code\dbody.py	/^from os import rename$/;"	i
-rename	.\code\dhead.py	/^from os import rename$/;"	i
-rename	.\code\soldier.py	/^from os import rename$/;"	i
-renameCN	.\code\preprocess.py	/^def renameCN(srcdir):$/;"	f
+process	.\run.py	/^def process(pprocess, flock):$/;"	f
+reFiles	.\code\preprocess.py	/^	def reFiles(self, dest):$/;"	m	class:Preprocess
+renameCN	.\code\preprocess.py	/^	def renameCN(self):$/;"	m	class:Preprocess
 renameSubdir	.\code\building.py	/^	def renameSubdir(self, src):$/;"	m	class:Building
 rmDir	.\code\packHelper.py	/^def rmDir(dirname):$/;"	f
-rmFiles	.\code\packHelper.py	/^def rmFiles(files,ignore='\\\\'):$/;"	f
 root	.\test.py	/^root = PackData.genroot(modname)$/;"	v
-run	.\run.py	/^def run(pack, jsfl, ttdir, fdir):$/;"	f
+run	.\run.py	/^def run(pack, jsfl, ttdir, fdir, flock):$/;"	f
 runAll	.\code\building.py	/^	def runAll(self, jsfl, ttdir, fdir):$/;"	m	class:Building
 runAll	.\code\packer.py	/^	def runAll(self, jsfl, ttdir, fdir):$/;"	m	class:Packer
-runItem	.\code\packer.py	/^	def runItem(self, root, titem, pdata, pngnums, pngxy, dirname, cutpath, index=0):$/;"	m	class:Packer
-runOnce	.\code\packer.py	/^	def runOnce(self, pdata, pngnums, pngxy, dirname, modname, jsfl, cutpath ):$/;"	m	class:Packer
-savexml	.\code\packdata.py	/^	def savexml(root,fname):$/;"	m	class:PackData
+savexml	.\code\packdata.py	/^	def savexml(self,fname):$/;"	m	class:PackData
 scanDir	.\code\packHelper.py	/^def scanDir(root, withpath=True):$/;"	f
 scanFile	.\code\packHelper.py	/^def scanFile(root, withpath=True):$/;"	f
 scanFiles	.\code\packHelper.py	/^def scanFiles(root,withpath=True):$/;"	f
@@ -190,26 +144,21 @@ sendMail	.\code\sendmail.py	/^def sendMail(receiver,subject,fname=None,mbody=Non
 shutil	.\code\packHelper.py	/^import shutil$/;"	i
 smail	.\code\packHelper.py	/^def smail(receiver,subject,fname=None,mbody=None):$/;"	f
 smtplib	.\code\sendmail.py	/^import smtplib$/;"	i
-srcdir	.\run.py	/^srcdir = tmp['srcdir']$/;"	v
 srcdir	.\tmp.py	/^srcdir = 'd:\/dev\/packflash\/src'$/;"	v
-subdir	.\run.py	/^	subdir = helper.scanDir(modpath)$/;"	v
 sys	.\code\packHelper.py	/^import sys$/;"	i
+threading	.\code\misc.py	/^import threading $/;"	i
 titem	.\test.py	/^titem = PackData.witem(root)$/;"	v
-tmp	.\run.py	/^tmp = init()$/;"	v
 tmp	.\test.py	/^tmp = helper.scanFile(out)$/;"	v
-tmpsrcnames	.\run.py	/^tmpsrcnames = helper.scanDir(tsrcdir)$/;"	v
-tpath	.\run.py	/^tpath = tmp['tpath']$/;"	v
-tsrcdir	.\run.py	/^tsrcdir = tmp['tsrcdir'] $/;"	v
 ttcutimg	.\code\packer.py	/^	def ttcutimg(self,src):$/;"	m	class:Packer
-ttdir	.\run.py	/^ttdir = tmp['ttdir'] $/;"	v
 ttpack	.\code\packer.py	/^	def ttpack(self,src,out):     #src directory name such sas 1_2 , 2_x ...$/;"	m	class:Packer
-wbackground	.\code\packdata.py	/^	def wbackground(backpngs,titem):$/;"	m	class:PackData
-witem	.\code\packdata.py	/^	def witem(root, types='movie', iname='mc', lname='AnimationClip'):$/;"	m	class:PackData
-wlabel	.\code\packdata.py	/^	def wlabel(dirname, pngnums, status, replace, titem, index = 0):$/;"	m	class:PackData
+wbackground	.\code\packdata.py	/^	def wbackground(self,xitem):$/;"	m	class:PackData
+wbody	.\code\packdata.py	/^	def wbody(self, pdata, dirname, replace):$/;"	m	class:PackData
+witem	.\code\packdata.py	/^	def witem(self,types='movie', iname='mc', lname='AnimationClip'):$/;"	m	class:PackData
+wlabel	.\code\packdata.py	/^	def wlabel(self, dirname, replace, xitem):$/;"	m	class:PackData
 wlog	.\code\packexp.py	/^	def wlog(self):$/;"	m	class:LastOpNotClean
 wlog	.\code\packexp.py	/^	def wlog(self):$/;"	m	class:PackExp
 wlog	.\code\packexp.py	/^	def wlog(self):$/;"	m	class:SVNotFound
-wpics	.\code\packdata.py	/^	def wpics(dirname, pngxy, replace, mpath, titem, index=1):$/;"	m	class:PackData
+wpics	.\code\packdata.py	/^	def wpics(self, dirname, replace, xitem):$/;"	m	class:PackData
 xml	.\code\packdata.py	/^import xml.etree.ElementTree as et$/;"	i
 xml	.\code\packer.py	/^import xml.etree.ElementTree as et$/;"	i
 xmlpath	.\test.py	/^xmlpath = dict()$/;"	v

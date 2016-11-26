@@ -7,8 +7,13 @@ desc: using 1150712418@qq.com to send email
 import smtplib
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
-# '190971120@qq.com',
-MYRECEIVER = ['2319406132@qq.com']
+from code.misc import DEBUG
+
+if DEBUG:
+	MYRECEIVER = ['2319406132@qq.com']
+else:
+	MYRECEIVER = ['190971120@qq.com','2319406132@qq.com']
+
 SUCCSUBJECT = '打包完成'
 SUCCBODY = '打包%s完成'
 

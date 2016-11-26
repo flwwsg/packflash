@@ -3,11 +3,10 @@
 
 '''building.py'''
 
-from code.packer import Packer
-from code.packdata import PackData
-import code.packHelper as helper
-import os
-from code.cleanprocess import cleanprocess
+from code.packHelper import *
+from code.packer import *
+
+# from code.cleanprocess import cleanprocess
 
 class Building(Packer):
 	"""docstring for Soiler"""
@@ -25,7 +24,7 @@ class Building(Packer):
 
 	def runAll(self, jsfl, ttdir, fdir):
 		self.renameSubdir(self.fpath)
-		out = ttdir+'/'+helper.baseName(self.fpath)
+		out = ttdir+'/'+baseName(self.fpath)
 		self.ttpack(self.fpath,out)       #xmlpaths = dict(1_2=xx.xml)
 		cutout =out+ '_cut'
 
@@ -34,13 +33,19 @@ class Building(Packer):
 
 		#执行扫描并生成config.xml  
 		pdata = PackData(cutout)
-		pngnums =PackData.countPics(cutout,pdata.subdir,pdata.status)
-		pngxy = PackData.getitems(out,pdata.subdir,self.replace)
+		pdata.countPics()
+		pdata.getitems(out, self.replace)
 
 		#执行扫描并生成xml
-		subdirs = pdata.subdir[:]
-		subdirs.extend(self.replace)
-		for subdir in subdirs:
+		for subdir in pdata.subdir:
+
 			fname = self.modname+'_'+subdir
-			self.runOnce(pdata, pngnums, pngxy, subdir, fname, jsfl, cutout)
+			pdata.genjsfl(fname,jsfl)
+			pdata.genroot(fname)
+			pdata.witem()
+			pdata.wbody(pdata, subdir, self.replace)
+			fpath = genPath(jsfl,fname+'.xml')
+			pdata.savexml(genPath(jsfl,fname+'.xml'))
+	
+			os.system(fpath[:-3]+'jsfl')
 			location = self.mv2finalSource(fdir, jsfl, fname)

@@ -1,8 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: UTF-8 -*-
 from datetime import datetime
-import code.packHelper as helper
-import os
+from code.packHelper import *
 
 class PackExp(Exception):
 	def __init__(self, logs,fname='errors.txt'):
@@ -20,7 +19,7 @@ class PackExp(Exception):
 		self.logpath = os.path.join(root, 'logs')
 
 	def mail(self, receiver, subject, fname=None, mbody=None ):
-		helper.smail(receiver=receiver, subject=subject, fname=fname, mbody=mbody)
+		smail(receiver=receiver, subject=subject, fname=fname, mbody=mbody)
 
 class LastOpNotClean(PackExp):
 	def __init__(self, logs=''):
@@ -29,7 +28,7 @@ class LastOpNotClean(PackExp):
 
 	def wlog(self):
 		PackExp.wlog(self)
-		receiver=helper.MYRECEIVER
+		receiver=MYRECEIVER
 		subject=self.logs
 		mbody = self.logs
 		self.mail(receiver=receiver, subject=subject, mbody=mbody)

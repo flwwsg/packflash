@@ -3,10 +3,7 @@
 
 '''dhead.py'''
 
-from code.packer import Packer
-import code.packHelper as helper
-from os import rename
-from os.path import exists
+from code.packer import *
 
 class DHead(Packer):
 	"""docstring for Soiler"""
@@ -46,28 +43,28 @@ class DHead(Packer):
 
 	def dealPng(self, dirsrc):
 				
-		dirs = helper.scanDir(dirsrc)
+		dirs = scanDir(dirsrc)
 		for tmpdir in dirs:
 			idle = tmpdir+'/'+'1_idle'
 			move = tmpdir+'/'+'2_move'
 			a31 = tmpdir+'/'+'3_attack_1'
 			for oldname, newname in zip([idle, move, a31],['2_idle','3_move','1_attack_1']):
-				if exists(oldname):
-					rename(oldname, tmpdir+'/'+newname)
+				if os.path.exists(oldname):
+					os.rename(oldname, tmpdir+'/'+newname)
 
 		newemptys = self.getEmpty(dirsrc)
 		
 		for item in newemptys:
-			bn = helper.baseName(item)
+			bn = baseName(item)
 			if bn == '7_die_2' or bn =='8_die_3':
 				src = item.replace(bn, '6_die_1')
 				find = self.chkEmpty(src, newemptys)
 				if not find:
-					src = helper.scanFile(src)[0]
-					helper.copyFile(src, src.replace('6_die_1', bn))
+					src = scanFile(src)[0]
+					copyFile(src, src.replace('6_die_1', bn))
 				continue
 			if bn =='1_attack_1':
 				continue
 			a11 = item.replace(bn, '1_attack_1')
-			a11firstpng = helper.scanFile(a11)[0]
-			helper.copyFile(a11firstpng, a11firstpng.replace('1_attack_1', bn))
+			a11firstpng = scanFile(a11)[0]
+			copyFile(a11firstpng, a11firstpng.replace('1_attack_1', bn))

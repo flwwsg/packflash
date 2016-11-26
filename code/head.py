@@ -3,9 +3,7 @@
 
 '''head.py'''
 
-from code.packer import Packer
-from code.packdata import PackData
-import code.packHelper as helper
+from code.packer import *
 
 class Head(Packer):
 	"""docstring for Soiler"""
@@ -37,7 +35,7 @@ class Head(Packer):
 
 	def dealPng(self, dirsrc):
 		newemptys = self.getEmpty(dirsrc)
-		exists = helper.nonemptyDir(dirsrc)
+		exists = nonemptyDir(dirsrc)
 
 		a31exits= list()
 		for exist in exists:
@@ -83,48 +81,48 @@ class Head(Packer):
 
 				if not find:					
 					#copy last picture in 1_idle to 2_move, 3_attack_1, 4_attack_2, 5_attack_3
-					src = helper.scanFile(idle)[-1]
+					src = scanFile(idle)[-1]
 					dests = ['2_move', '3_attack_1', '4_attack_2', '5_attack_3']
 					# print(dests)
 					for dest in dests:
-						helper.copyFile(src, src.replace('1_idle', dest))
+						copyFile(src, src.replace('1_idle', dest))
 
 				die = a3.replace('3_attack_1','6_die_1')
 				find = self.chkEmpty(die, dies)
 				# print(die,find)
 				if not find:
 					#copy last picture in 6_die_1 to 7_die_2,  8_die_3					
-					src = helper.scanFile(die)[-1]
-					helper.copyFile(src, src.replace('6_die_1', '7_die_2'))
-					helper.copyFile(src, src.replace('6_die_1', '8_die_3'))
+					src = scanFile(die)[-1]
+					copyFile(src, src.replace('6_die_1', '7_die_2'))
+					copyFile(src, src.replace('6_die_1', '8_die_3'))
 
 			#2_move is not empty
 			else:
 				die = a3.replace('3_attack_1','6_die_1')
 				find = self.chkEmpty(die,dies )
 				if not find:
-					src = helper.scanFile(die)[-1]
-					helper.copyFile(src, src.replace('6_die_1', '7_die_2'))
-					helper.copyFile(src, src.replace('6_die_1', '8_die_3'))
+					src = scanFile(die)[-1]
+					copyFile(src, src.replace('6_die_1', '7_die_2'))
+					copyFile(src, src.replace('6_die_1', '8_die_3'))
 
 				#copy last picture in 1_idle to 2_move, 3_attack_1, 4_attack_2, 5_attack_3
-				src = helper.scanFile(move)[-1]
+				src = scanFile(move)[-1]
 				dests = ['3_attack_1', '4_attack_2', '5_attack_3']
 				# print(dests)
 				for dest in dests:
-					helper.copyFile(src, src.replace('2_move', dest))
+					copyFile(src, src.replace('2_move', dest))
 
 				idle = a3.replace('3_attack_1','1_idle')
 				find = self.chkEmpty(idle, idles)
 				if find:
 					dest = src.replace('2_move', '1_idle')
-					helper.copyFile(src, dest)
+					copyFile(src, dest)
 		
 		#3_attack_1 is not empty
 		# print(a31exits)
 		for a31 in a31exits:
 			# print(a31)
-			a31firstpng = helper.scanFile(a31)[0]
+			a31firstpng = scanFile(a31)[0]
 			idle = a31.replace('3_attack_1','1_idle')
 			find = self.chkEmpty(idle, idles)
 
@@ -135,10 +133,10 @@ class Head(Packer):
 				find = self.chkEmpty(move, moves)
 				if find:
 					src = a31firstpng
-					helper.copyFile(src, src.replace('3_attack_1','1_idle'))
+					copyFile(src, src.replace('3_attack_1','1_idle'))
 				else:
-					src = helper.scanFile(move)[0]
-					helper.copyFile(src, src.replace('2_move', '1_idle'))
+					src = scanFile(move)[0]
+					copyFile(src, src.replace('2_move', '1_idle'))
 				# continue
 
 			#2_move is empty
@@ -146,7 +144,7 @@ class Head(Packer):
 			find = self.chkEmpty(move, moves)
 			if find:
 				# print('find move')
-				helper.copyFiles(a31.replace('3_attack_1','1_idle'), move, recur=False)
+				copyFiles(a31.replace('3_attack_1','1_idle'), move, recur=False)
 				# continue
 
 			#4_attack_2 or 5_attack_3 is empty
@@ -156,21 +154,21 @@ class Head(Packer):
 			f53 = self.chkEmpty(a53, attacks)
 			if f42:
 				# src = a31firstpng
-				helper.copyFiles(a31, a42,recur=False)
+				copyFiles(a31, a42,recur=False)
 				# continue
 			if f53:
-				helper.copyFiles(a31, a53, recur=False)
+				copyFiles(a31, a53, recur=False)
 				# continue
 			
 			#6_die_1 is not empty
 			die = a31.replace('3_attack_1','6_die_1')
 			find = self.chkEmpty(die, dies)
 			if not find:
-				src = helper.scanFile(die)[-1]
+				src = scanFile(die)[-1]
 				die7 = src.replace('6_die_1','7_die_2')
 				die8 = src.replace('6_die_1','8_die_3')
-				helper.copyFile(src, die7)
-				helper.copyFile(src, die8)
+				copyFile(src, die7)
+				copyFile(src, die8)
 				# continue
 
 			#6_die_1, 7_die_2 , 8_die_3 is empty
@@ -182,7 +180,7 @@ class Head(Packer):
 			f8 = self.chkEmpty(d8,dies)
 			if f6 and f7 and f8:
 				src =a31firstpng
-				helper.copyFile(src, src.replace('3_attack_1','6_die_1'))
-				helper.copyFile(src, src.replace('3_attack_1','7_die_2'))
-				helper.copyFile(src, src.replace('3_attack_1','8_die_3'))
+				copyFile(src, src.replace('3_attack_1','6_die_1'))
+				copyFile(src, src.replace('3_attack_1','7_die_2'))
+				copyFile(src, src.replace('3_attack_1','8_die_3'))
 		# exit()

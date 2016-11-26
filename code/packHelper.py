@@ -2,10 +2,10 @@
 # -*- coding: UTF-8 -*-
 
 '''helper function for animation run'''
-from code.sendmail import *
 import os 
 import shutil
 import sys
+from code.sendmail import *
 
 def mkDir(paths):
 	if isinstance(paths,str):
@@ -15,16 +15,6 @@ def mkDir(paths):
 			continue
 		else:
 			os.makedirs(path)
-
-def rmFiles(files,ignore='\\'):
-	n=len(ignore)*(-1)
-	if isinstance(files,str):
-		files = [files]
-	for path in files:
-		if os.path.exists(path):
-			if path[n:] == ignore:
-				continue
-			os.remove(path)
 
 def rmDir(dirname):
 	if not os.path.exists(dirname):
@@ -47,7 +37,7 @@ def scanFile(root, withpath=True):
 	dirs = os.listdir(root)
 	name = list()
 	for file in dirs:
-		tmp = genPath(root, file)
+		tmp = os.path.join(root, file)
 		isdir = os.path.isdir(tmp)
 		if not isdir and withpath:
 			name.append(tmp)
@@ -62,7 +52,7 @@ def scanDir(root, withpath=True):
 	dirs = os.listdir(root)
 
 	for file in dirs:
-		tmp = genPath(root, file)
+		tmp = os.path.join(root, file)
 		isdir = os.path.isdir(tmp)
 		if isdir and withpath:
 			names.append(tmp)
@@ -76,16 +66,14 @@ def copyFiles(src, dest, recur=True,ignore=None):
 	else:
 		dirs = os.listdir(src)
 		for file in dirs:
-			tmp = genPath(src, file)
+			tmp = os.path.join(src, file)
 			if not os.path.isdir(tmp):
 				shutil.copy(tmp,dest)
 				
 def copyFile(src, dest):
 	shutil.copyfile(src, dest)
 
-def genPath(root=None, path=None):
-	if not root:
-		root = os.getcwd()
+def genPath(root, path):
 	return os.path.join(root, path)
 
 def chkType(fn):
@@ -124,7 +112,7 @@ def countDir(root):
 		return n
 	dirs = os.listdir(root)
 	for file in dirs:
-		tmp = genPath(root, file)
+		tmp = os.path.join(root, file)
 		if os.path.isdir(tmp):
 			n += 1
 	return n
@@ -135,7 +123,7 @@ def countFile(root):
 		return n
 	dirs = os.listdir(root)
 	for file in dirs:
-		tmp = genPath(root, file)
+		tmp = os.path.join(root, file)
 		if not os.path.isdir(tmp):
 			n += 1
 	return n
