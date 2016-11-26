@@ -16,13 +16,13 @@ from code.dbody import DBody
 from code.packexp import *
 import threading
 
-def runflashcc(pipein):
-	flag = os.read(pipein, 1024)
-	tmp = flag.decode('utf-8')
-	flist = tmp.split(',')
-	for fname in flist:
-		print(fname)
-		# os.system(fname)
+# def runflashcc(pipein):
+# 	flag = os.read(pipein, 1024)
+# 	tmp = flag.decode('utf-8')
+# 	flist = tmp.split(',')
+# 	for fname in flist:
+# 		# print(fname)
+# 		os.system(fname)
 
 def run(pack, jsfl, ttdir, fdir, pipeout, pipein):
 	paths = pack.runAll(jsfl, ttdir, fdir)
@@ -38,7 +38,7 @@ def run(pack, jsfl, ttdir, fdir, pipeout, pipein):
 			tmp = ','+path
 		msg += tmp
 	os.write(pipeout, msg.encode())
-	runflashcc(pipein)
+	# runflashcc(pipein)
 
 def init():
 	try:
@@ -97,14 +97,19 @@ for modpath in tmpsrcnames: #commandoxx, factoryxx ...
 	except PackExp as e:
 		e.wlog()
 
-# fnames = []
-# for pipein in pipes:
-# 	flag = os.read(pipein, 1024)
-# 	tmp = flag.decode('utf-8')
-# 	print(tmp)
-	
+fnames = []
+for pipein in pipes:
+	flag = os.read(pipein, 1024)
+	tmp = flag.decode('utf-8')
+	fnames.append(tmp)
+	print(tmp)
 
-# for fname in fnames:
-# 	flist = fname.split(',')
-# 	print(flist)
+for fname in fnames:
+	flist = fname.split(',')
+	for jsfl in flist:
+		print(jsfl)
+		os.system(jsfl)
+		swf = jsfl.replace('.jsfl', '.swf')
+		fla = jsfl.replace('.jsfl', '.fla')
+
 # cleanprocess(tpath, filename)
