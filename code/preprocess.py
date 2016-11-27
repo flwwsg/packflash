@@ -110,17 +110,15 @@ class Preprocess(object):
 
 		for item in dirs:
 			bn = baseName(item)
-
 			tailcn = bn[-2:]
 			headcn = bn[:2]
-
 			for k,v in types.items():
 				if v == tailcn:
-					newname = item[:-2]+'-'+k
-					os.rename(item, newname)
+					newname = bn[:-2]+'-'+k
+					os.rename(item, item.replace(bn, newname))
 				elif v == headcn:
-					newname = item[2:]+'-'+k
-					os.rename(item, newname)
+					newname = bn[2:]+'-'+k
+					os.rename(item, item.replace(bn, newname))
 
 
 			

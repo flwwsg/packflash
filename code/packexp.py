@@ -5,37 +5,53 @@ from code.packHelper import *
 
 class PackExp(Exception):
 	def __init__(self, logs,fname='errors.txt'):
+		self.now = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
 		self.logs = logs
 		self.getPath()
 		self.logfile=os.path.join(self.logpath,fname)
 
 	def wlog(self):
-		now = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
 		with open(self.logfile,'a',encoding='utf-8') as fs:
-			fs.write('\n'+self.logs+'\t'+now)
+			fs.write('\n'+self.logs+'\t'+self.now)
 
 	def getPath(self):
 		root = os.getcwd()
 		self.logpath = os.path.join(root, 'logs')
 
-	def mail(self, receiver, subject, fname=None, mbody=None ):
+	def mail(self, subject, fname=None ):
+		receiver = MYRECEIVER
+		mbody = self.logs+'\n邮件发送于'+self.now
 		smail(receiver=receiver, subject=subject, fname=fname, mbody=mbody)
 
 class LastOpNotClean(PackExp):
 	def __init__(self, logs=''):
-		logs = '上次运行时程序意外中止，请查看tmp目录'+logs
+		logs = LASTOPNOTCLEAN +logs
 		PackExp.__init__(self, logs, 'errors.txt')
 
 	def wlog(self):
 		PackExp.wlog(self)
-		receiver=MYRECEIVER
 		subject=self.logs
-		mbody = self.logs
-		self.mail(receiver=receiver, subject=subject, mbody=mbody)
+		self.mail( subject=subject)
 
 class SVNotFound(PackExp):
-	def __init__(self,logs):
-		PackExp.__init__(self, logs, 'errors.txt')
+	def __init__(self,svnfile,types, mtype, fname, logs=''):
+		msg = SVNOTFOUND %(types, mtype, fname)
+		self.fname = svnfile
+		PackExp.__init__(self, msg+logs, 'errors.txt')
 
 	def wlog(self):
 		PackExp.wlog(self)
+		subject = self.logs
+		self.logs = self.logs
+		self.mail( subject=subject, fname=self.fname)
+
+class PackFinish(PackExp):
+	def __init__(self, startime, body='', logs=''):
+		self.subject = SUCCSUBJECT
+		now = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+		logs = SUCCBODY % (body, startime, now) + logs
+		PackExp.__init__(self, logs)
+
+	def wlog(self):
+		self.mail(subject=self.subject)
+		

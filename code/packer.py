@@ -6,8 +6,7 @@ from code.packHelper import *
 from PIL import Image, ImageDraw
 import xml.etree.ElementTree as et
 from code.packdata import PackData
-from code.cleanprocess import copy2SVN
-
+from code.cleanprocess import Cleanprocess
 
 class Packer(object):
 	"""packing pictures for flash"""
@@ -65,8 +64,6 @@ class Packer(object):
 			# print(file, fname, cmd)
 			output = os.popen(cmd).read()        #must using read
 
-	
-
 	def mv2finalSource(self, fdir, jsfl, fname=None):
 		if not fname:
 			fname = self.modname
@@ -106,7 +103,7 @@ class Packer(object):
 		with flock:
 			os.system(fname[:-3]+'jsfl')
 			location = self.mv2finalSource(fdir, jsfl)
-			copy2SVN(location, self.modtype, self.type)
+			Cleanprocess.copy2SVN(location, self.type, self.modtype)
 
 	@classmethod
 	def ttcutimg(self,src):

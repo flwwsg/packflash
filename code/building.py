@@ -7,7 +7,6 @@ from code.packHelper import *
 from code.packer import *
 
 class Building(Packer):
-	"""docstring for Soiler"""
 	def __init__(self, mod):
 		self.subnum = -3 #1_1, 1_2 xx
 		self.subdirs = ['1_1','1_2','1_3','1_4','1_5']
@@ -35,7 +34,6 @@ class Building(Packer):
 		pdata.getitems(out, self.replace)
 
 		#执行扫描并生成xml
-		cmds = []
 		for subdir in pdata.subdir:
 
 			fname = self.modname+'_'+subdir
@@ -46,10 +44,7 @@ class Building(Packer):
 			pdata.wbody(pdata, subdir, self.replace)
 			fpath = genPath(jsfl,fullname+'.xml')
 			pdata.savexml(fpath)
-			
-			cmds.append(fpath[:-3]+'jsfl')
 
-		with flock:
-			for cmd in cmds:
-				os.system(cmd)
+			with flock:
+				os.system(fpath[:-3]+'jsfl')
 				location = self.mv2finalSource(fdir, jsfl, fname)
