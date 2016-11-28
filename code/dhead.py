@@ -50,23 +50,25 @@ class DHead(Packer):
 			ipath = genPath(subdir, '1_idle')
 			mpath = genPath(subdir, '2_move')
 			apath = genPath(subdir, '3_attack_1')
+			a31 = '3_attack_1' in empty:
 			
 			for path in empty:
 				dpath = genPath(subdir, '6_die_1')
 				dfirstpng = scanFile(dpath)[0]
 
-				if path == '7_die_2':
-					copyFiles(dfirstpng, dfirstpng.replace('6_die_1', '7_die_2'))
-				elif path == '8_die_3':
-					copyFiles(dfirstpng, dfirstpng.replace('6_die_1', '8_die_3'))
-
 				#different from dbody
-				else:
+				if path == '7_die_2':
+					copyFile(dfirstpng, dfirstpng.replace('6_die_1', '7_die_2'))
+				elif path == '8_die_3':
+					copyFile(dfirstpng, dfirstpng.replace('6_die_1', '8_die_3'))
+				#end 
+				
+				elif not a31:
 					afirstpng = scanFile(apath)[0]
 					dest = afirstpng.replace('3_attack_1',path)
 					copyFile(afirstpng, dest)
 
 			os.rename(ipath, ipath.replace('1_idle', '2_idle'))
 			os.rename(mpath, mpath.replace('2_move', '3_move'))
-			if not '3_attack_1'	in empty:
+			if not a31:
 				os.rename(apath, apath.replace('3_attack_1','1_attack_1'))
