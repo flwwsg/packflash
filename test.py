@@ -10,7 +10,8 @@ jsfl = r'D:\dev\packflash\tmp\kpjsfl'
 fn = r'D:\dev\packflash\finalsource/units/soldiers/gunner_en.swf'
 src = 'd:/dev/packflash/src'
 try:
-	Cleanprocess.copy2SVN(fn,'soldiers','units')
+	clean = Cleanprocess()
+	Cleanprocess.copy2SVN(fn,'soldiers','units','xx#xxy#')
 except PackExp as e:
 	e.wlog()
 

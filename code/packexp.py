@@ -34,8 +34,8 @@ class LastOpNotClean(PackExp):
 		self.mail( subject=subject)
 
 class SVNotFound(PackExp):
-	def __init__(self,svnfile,types, mtype, fname, logs=''):
-		msg = SVNOTFOUND %(types, mtype, fname)
+	def __init__(self,svnfile,types, mtype, fname,fpath, logs=''):
+		msg = SVNOTFOUND %(types, mtype, fpath, fname)
 		self.fname = svnfile
 		PackExp.__init__(self, msg+logs, 'errors.txt')
 
@@ -54,4 +54,8 @@ class PackFinish(PackExp):
 
 	def wlog(self):
 		self.mail(subject=self.subject)
-		
+
+class SWFNotFound(PackExp):
+	def __init__(self, fpath):
+		logs = fpath + 'not exists!!! something wrong.'
+		PackExp.__init__(self, logs)		

@@ -33,7 +33,9 @@ class Preprocess(object):
 
 	@classmethod
 	def preprocess(self):
-		self.renameCN()
+		self.formatType()
+		dirs = emptyDir(self.srcdir)
+		rmDir(dirs)
 		dirs = scanDir(self.srcdir)
 		self.copy2tmpsrc(dirs, self.tspath)
 
@@ -43,30 +45,29 @@ class Preprocess(object):
 		for path in dirs:
 			newpath = self.chkPath(path)
 			if len(newpath) < 5:
-				bn = baseName(path)
-				mod = self.formatType(bn)
+				mod = baseName(path)
 				if name:
 					mod = mod +'#'+ name
 				self.copy2tmpsrc(newpath, dest, mod)
 				continue
-			src = newpath[0]
-			if not src:
-				return
-			src = dirName(src)
-			bn = baseName(path)
-			mod = self.formatType(bn)
+			src = self.getsrc(newpath[0])
+			mod = baseName(path)
 			if name:
 				mod = mod +'#'+ name
 			newdest = genPath(dest, mod)
 			
 			if os.path.exists(newdest):
-				# continue
-				raise LastOpNotClean()
+				if DEBUG:
+					continue
+				else:
+					raise LastOpNotClean()
 			copyFiles(src, newdest)
 			self.reFiles(newdest)
 
 	@classmethod
 	def reFiles(self, dest):
+		files = scanFile(dest)	
+		delFiles(files)
 		dirs = scanDir(dest)
 		if len(dirs) < 10:
 			return
@@ -79,13 +80,16 @@ class Preprocess(object):
 			for tdir in dirs:
 				bn = baseName(tdir)
 				tmp = bn.split('_')
+				if len(tmp) != 2:
+					rmDir(tdir)
+					continue
 				first = tmp[0]
 				second = tmp[1]
 				newfirst = replace[first] if first in replace.keys() else first
 				newsecond = replace[second] if second in replace.keys() else second
 
 				newname = tdir.replace(bn, newfirst+'_'+newsecond)
-				os.rename(tdir, newname)			
+				os.rename(tdir, newname)	
 
 	@classmethod
 	def chkPath(self, path):
@@ -96,29 +100,41 @@ class Preprocess(object):
 			return self.chkPath(dirs[0])
 
 	@classmethod
-	def formatType(self,fn):
-		head = fn[2:3]
-		if head == '-':
-			return fn[3:]+'-'+fn[:2]
-		else:
-			return fn
-
-	@classmethod
-	def renameCN(self):
+	def formatType(self):
 		types =dict(zf='正方',ff='反方',jz='建筑',tx='特效',ui='gui')
 		dirs = scanDir(self.srcdir)
 
 		for item in dirs:
+			find = False
 			bn = baseName(item)
 			tailcn = bn[-2:]
 			headcn = bn[:2]
 			for k,v in types.items():
 				if v == tailcn:
 					newname = bn[:-2]+'-'+k
-					os.rename(item, item.replace(bn, newname))
+					find = True
+					break
 				elif v == headcn:
 					newname = bn[2:]+'-'+k
+					find = True
+					break
+			if find:
+				os.rename(item, item.replace(bn, newname))
+			else:
+				bn = baseName(item)
+				head = bn[2:3]
+				if head == '-':
+					newname = bn[3:]+'-'+bn[:2]
 					os.rename(item, item.replace(bn, newname))
-
-
-			
+	
+	@classmethod
+	def getsrc(self, src):
+		keep = ['1_2']
+		tmp = src.split(os.sep)
+		bn = tmp[-2]
+		newsrc = os.sep.join(tmp[:-2])
+		src = dirName(src)
+		if bn in keep:
+			return newsrc
+		else:
+			return src

@@ -192,7 +192,10 @@ class PackData(object):
 	
 	@classmethod
 	def savexml(self,fname):
-		root = indent(self.root)
+		if DEBUG:
+			root = indent(self.root)
+		else:
+			root = self.root
 		et.ElementTree(root).write(fname)
 
 	@classmethod

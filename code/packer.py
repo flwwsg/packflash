@@ -13,28 +13,28 @@ class Packer(object):
 	def __init__(self, modtype,fpath):
 		self.type = modtype
 		self.fpath = fpath
-		self.formatDir(fpath)
+		self.formatDir()
 		self.fullname = '-'.join([self.modname, self.modtype, self.type])
 
 		#rename files
-	def formatDir(self,fpath):
-		dirs = scanDir(fpath)
-		path = fpath
+	def formatDir(self):
+		dirs = scanDir(self.fpath)
+		path = self.fpath
 		path = baseName(path)
 		newtype = chkType(path)
-		newpath = path.split('#')[0].split('-')[0]
+		newpath = path.split('#')[-1].split('-')[0]
 		newpath = newpath+'-'+newtype
 
 		# for example modname = commando , modtype = mobs
 		self.modname = newpath.split('-')[0]
 		self.modtype = newpath.split('-')[1]
 
-		subdirs = scanDir(fpath)
+		subdirs = scanDir(self.fpath)
 		# print(subdirs)
 		index = 11
 		for spath,name in zip(subdirs,self.subdirs):
 			bname = baseName(spath)
-			newname = genPath(fpath,name)
+			newname = genPath(self.fpath,name)
 			# print(spath, newname)
 			#make new name
 			fnames = scanFiles(spath)
@@ -51,18 +51,17 @@ class Packer(object):
 					n = str(index)
 				os.rename(file, genPath(newfn, 'new'+n+'.png'))
 				index += 1
+
+			if spath == newname:
+				continue
 			os.rename(spath, newname)
 
-	def ttpack(self,src,out):     #src directory name such sas 1_2 , 2_x ...
-		sfiles = scanDir(src)
-		for file in sfiles:
-			fname = baseName(file)
-			if fname in self.replace.keys():
-				continue
-			cmd = "TexturePacker --max-width 4096 --max-height 4096 --pack-mode Best --size-constraints AnySize --data %s/%s.xml --format sparrow --sheet %s/%s.png %s" % (
-					out, fname, out, fname, file)
-			# print(file, fname, cmd)
-			output = os.popen(cmd).read()        #must using read
+		#subdir = 1_2, xx , status = 1_idle
+	def getEmptyStatus(self, subdir):
+		status = scanDir(subdir,False)
+		status = set(status)
+		diffs = self.fstatus - status
+		return diffs
 
 	def mv2finalSource(self, fdir, jsfl, fname=None):
 		if not fname:
@@ -87,7 +86,7 @@ class Packer(object):
 		#cutting small picture saved at tmp/texture/xxx_cut from picture processed by texture on tmp/texture/xxx
 		self.ttcutimg(out)  
 
-		#执行扫描并生成config.xml  
+		#执行扫描并生成{self.fullname}xml  
 		pdata = PackData(cutout)
 		pdata.countPics()
 		pdata.getitems(out, self.replace)
@@ -99,11 +98,24 @@ class Packer(object):
 			pdata.wbody(pdata, subdir, self.replace)
 		fname = genPath(jsfl,self.fullname+'.xml')
 		pdata.savexml(fname)
-	
+		
+		clean = Cleanprocess()
 		with flock:
 			os.system(fname[:-3]+'jsfl')
 			location = self.mv2finalSource(fdir, jsfl)
-			Cleanprocess.copy2SVN(location, self.type, self.modtype)
+			if not os.path.exists(location):
+				raise SWFNotFound(location)
+			clean.copy2SVN(location, self.type, self.modtype,self.fpath)
+
+	@classmethod
+	def ttpack(self,src,out):     #src directory name such sas 1_2 , 2_x ...
+		sfiles = scanDir(src)
+		for file in sfiles:
+			fname = baseName(file)
+			cmd = "TexturePacker --max-width 4096 --max-height 4096 --pack-mode Best --size-constraints AnySize --data %s/%s.xml --format sparrow --sheet %s/%s.png %s" % (
+					out, fname, out, fname, file)
+			# print(file, fname, cmd)
+			output = os.popen(cmd).read()        #must using read
 
 	@classmethod
 	def ttcutimg(self,src):
@@ -146,25 +158,3 @@ class Packer(object):
 			outdir = dirName(out)
 			mkDir(outdir)
 			img2.save(out)
-
-	def getEmpty(self, mod):
-		emptys = emptyDir(mod)
-		newemptys = list()
-
-		for item in emptys:
-			find = False
-			for k in self.replace.keys():
-				if item.find(k) != -1:
-					find = True
-					break
-			if not find:
-				newemptys.append(item)
-		return newemptys
-
-	@classmethod
-	def chkEmpty(self, name, elist):
-		for l in elist:
-			if l==name:
-				return True
-
-		return False

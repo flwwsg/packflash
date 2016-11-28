@@ -6,6 +6,7 @@ import os
 import shutil
 import sys
 from code.sendmail import *
+from code.misc import *
 
 def mkDir(paths):
 	if isinstance(paths,str):
@@ -16,12 +17,20 @@ def mkDir(paths):
 		else:
 			os.makedirs(path)
 
-def rmDir(dirname):
-	if not os.path.exists(dirname):
-		return None
-	shutil.rmtree(dirname)
+def rmDir(dirnames):
+	if isinstance(dirnames,str):
+		dirnames = [dirnames]
+	for dirname in dirnames:
+		if not os.path.exists(dirname):
+			return None
+		shutil.rmtree(dirname)
 	
-#
+def delFiles(files):
+	if isinstance(files, str):
+		files = [files]
+	for file in files:
+		os.remove(file)
+
 def scanFiles(root,withpath=True):
 	name = list()
 	for dirs, subdirs, fns in os.walk(root):
@@ -38,10 +47,10 @@ def scanFile(root, withpath=True):
 	name = list()
 	for file in dirs:
 		tmp = os.path.join(root, file)
-		isdir = os.path.isdir(tmp)
-		if not isdir and withpath:
+		isfile = os.path.isfile(tmp)
+		if isfile and withpath:
 			name.append(tmp)
-		elif not isdir and not withpath:
+		elif isfile and not withpath:
 			name.append(file)
 	return name
 
@@ -71,6 +80,8 @@ def copyFiles(src, dest, recur=True,ignore=None):
 				shutil.copy(tmp,dest)
 				
 def copyFile(src, dest):
+	dirname = dirName(dest)
+	mkDir(dirname)
 	shutil.copyfile(src, dest)
 
 def genPath(root, path):
@@ -94,14 +105,6 @@ def emptyDir(path):
 		if not subdirs and not fnames:
 			empty.append(dirs)
 	return empty
-
-def nonemptyDir(path):
-	nonempty = list()
-	for dirs, subdirs, fnames in os.walk(path):
-		if fnames:
-			nonempty.append(dirs)
-	return nonempty
-
 
 def dirName(path):
 	return os.path.dirname(path)

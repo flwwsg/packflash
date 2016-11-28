@@ -29,9 +29,10 @@ class DHead(Packer):
 						'11_09','12_07','13_05','14_03','15_01','16_31','17_29','18_13','19_14','20_15',
 						'21_16','22_17','23_18','24_19','25_20','26_21','27_22','28_23','29_24','30_25',
 						'31_26','32_27']
+		self.fstatus = {'1_idle','2_move','3_attack_1','4_attack_2',
+						'5_attack_3','6_die_1','7_die_2','8_die_3'}
 		self.dealPng(mod)
 		Packer.__init__(self, 'towers_head',mod)
-		self.getModname()
 
 	def getModname(self):
 		tmp=dict()
@@ -42,29 +43,30 @@ class DHead(Packer):
 			self.modname = tmp[self.modname]
 
 	def dealPng(self, dirsrc):
-				
-		dirs = scanDir(dirsrc)
-		for tmpdir in dirs:
-			idle = tmpdir+'/'+'1_idle'
-			move = tmpdir+'/'+'2_move'
-			a31 = tmpdir+'/'+'3_attack_1'
-			for oldname, newname in zip([idle, move, a31],['2_idle','3_move','1_attack_1']):
-				if os.path.exists(oldname):
-					os.rename(oldname, tmpdir+'/'+newname)
+		realsudirs = scanDir(src)
+		for subdir in realsudirs:
+			empty = self.getEmptyStatus(subdir)
 
-		newemptys = self.getEmpty(dirsrc)
-		
-		for item in newemptys:
-			bn = baseName(item)
-			if bn == '7_die_2' or bn =='8_die_3':
-				src = item.replace(bn, '6_die_1')
-				find = self.chkEmpty(src, newemptys)
-				if not find:
-					src = scanFile(src)[0]
-					copyFile(src, src.replace('6_die_1', bn))
-				continue
-			if bn =='1_attack_1':
-				continue
-			a11 = item.replace(bn, '1_attack_1')
-			a11firstpng = scanFile(a11)[0]
-			copyFile(a11firstpng, a11firstpng.replace('1_attack_1', bn))
+			ipath = genPath(subdir, '1_idle')
+			mpath = genPath(subdir, '2_move')
+			apath = genPath(subdir, '3_attack_1')
+			
+			for path in empty:
+				dpath = genPath(subdir, '6_die_1')
+				dfirstpng = scanFile(dpath)[0]
+
+				if path == '7_die_2':
+					copyFiles(dfirstpng, dfirstpng.replace('6_die_1', '7_die_2'))
+				elif path == '8_die_3':
+					copyFiles(dfirstpng, dfirstpng.replace('6_die_1', '8_die_3'))
+
+				#different from dbody
+				else:
+					afirstpng = scanFile(apath)[0]
+					dest = afirstpng.replace('3_attack_1',path)
+					copyFile(afirstpng, dest)
+
+			os.rename(ipath, ipath.replace('1_idle', '2_idle'))
+			os.rename(mpath, mpath.replace('2_move', '3_move'))
+			if not '3_attack_1'	in empty:
+				os.rename(apath, apath.replace('3_attack_1','1_attack_1'))

@@ -8,6 +8,7 @@ from code.head import Head
 from code.dhead import DHead
 from code.body import Body
 from code.dbody import DBody
+from code.bsoldier import BSoldier
 from code.packexp import *
 from code.preprocess import Preprocess
 from code.misc import genThread, FLOCK
@@ -31,26 +32,31 @@ def process(pprocess, filenames, pipes, flock):
 	tmpsrcnames = scanDir(tsrcdir)
 	for modpath in tmpsrcnames: #commandoxx, factoryxx ...
 		subdir = scanDir(modpath)
+		style = modpath[-2:]
 		count = len(subdir)
 		tmp = baseName(modpath)
 		filenames.append(tmp)
 		bn = tmp.split('#')[-1]
 		dota = bn[:4]
-		# print(modpath,count)
-		if count==5:
-			print('Processing building')
-			pack = Building(modpath)
-		elif count == 8:
+
+		if style == 'jz':
+			if count == 5:
+				print('Processing building')
+				pack = Building(modpath)
+			elif count == 1:
+				print('Processing building-soldier')
+				pack = BSoldier(modpath)
+		elif count == 5:
 			print('Processing soldier')
 			pack = Soldier(modpath)
-		elif count==32:
+		elif count==17:
 			if dota == 'dota':
 				print('Processing dota Head')
 				pack = DHead(modpath)
 			else:
 				print('Processing Head')
 				pack = Head(modpath)
-		elif count == 16:
+		elif count == 9:
 			if dota == 'dota':
 				print('Processing dota Body')
 				pack = DBody(modpath)
@@ -68,6 +74,7 @@ pipes = []
 try:
 	startime = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
 	pprocess = Preprocess()
+	clean = Cleanprocess()
 	pprocess.preprocess()
 	process(pprocess, filenames, pipes, FLOCK)
 
@@ -75,7 +82,6 @@ try:
 	for pipein in pipes:
 		msg = os.read(pipein, 32).decode()
 		print(msg)
-	Cleanprocess.cleanprocess(pprocess.tpath, startime, ','.join(filenames))
+	clean.cleanprocess(startime, ','.join(filenames))
 except PackExp as e:
 	e.wlog()
-

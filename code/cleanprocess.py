@@ -5,32 +5,39 @@ from code.packHelper import *
 from code.packexp import *
 
 class Cleanprocess:
+	def __init__(self):
+		self.getpath()
 		
-	@staticmethod
-	def cleanprocess(tmpdir, startime, body=''):
-		rmDir(tmpdir)
+	@classmethod
+	def getpath(self):
+		root = os.getcwd()
+		self.tpath = os.path.join(root, 'tmp')
+		self.svnfile = os.path.join(root,'svn.txt')
+
+	@classmethod
+	def cleanprocess(self,startime, body=''):
+		if not DEBUG:
+			rmDir(self.tpath)
 		if not body:
 			return
 		raise PackFinish(startime, body)
 
-	@staticmethod
-	def getSvnAddr(fname,types,mtype):
-		root = os.getcwd()
-		file = root+'/svn.txt'
-		with open(file) as f:
+	@classmethod
+	def getSvnAddr(self, fname,types,mtype):
+		with open(self.svnfile) as f:
 			for line in f.readlines():
 				for dirs, subdirs, fns in os.walk(line):
 					for fn in fns:
 						if fn == fname and dirs.find(types) != -1 and dirs.find(mtype) != -1:
-							return dirs, file
-		return False,file
+							return dirs
+		return False
 
 	#types = solider ... ,mtype = mobs , units ...
-	@staticmethod
-	def copy2SVN(src, types,mtype):
+	@classmethod
+	def copy2SVN(self, src, types,mtype,fullname):
 		fname = os.path.basename(src)
-		find, svnfile = Cleanprocess.getSvnAddr(fname, types, mtype)
+		find = self.getSvnAddr(fname, types, mtype)
 		if not find:
-			raise SVNotFound(svnfile, types, mtype, fname)
+			raise SVNotFound(self.svnfile, types, mtype, fname, fullname)
 		else:
 			copyFile(src, find+'/'+fname)

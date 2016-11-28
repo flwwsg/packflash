@@ -16,7 +16,7 @@ else:
 
 SUCCSUBJECT = '打包完成'
 SUCCBODY = '打包%s完成, 本次打包开始时间为%s, %s完成打包 '
-SVNOTFOUND = '在svn.txt地址中无法找到类型为 %s-%s 文件名是 %s 的swf文件 '
+SVNOTFOUND = '在svn.txt地址中无法找到类型为 %s-%s 位于 %s 名为 %s 的swf文件 '
 LASTOPNOTCLEAN = '上次运行时程序意外中止，请查看tmp目录 '
 
 def sendMail(receiver,subject,fname=None,mbody=None,server=None):

@@ -1,14 +1,23 @@
 Body	code\body.py	/^class Body(Packer):$/;"	c
 __init__	code\body.py	/^	def __init__(self, mod):$/;"	m	class:Body
 dealPng	code\body.py	/^	def dealPng(self, dirsrc):$/;"	m	class:Body
+BSPdata	code\bsoldier.py	/^from code.bspdata import BSPdata$/;"	i
+BSoldier	code\bsoldier.py	/^class BSoldier(Packer):$/;"	c
+__init__	code\bsoldier.py	/^	def __init__(self,mod):$/;"	m	class:BSoldier
+runAll	code\bsoldier.py	/^	def runAll(self, jsfl, ttdir, fdir, flock):$/;"	m	class:BSoldier
+BSPdata	code\bspdata.py	/^class BSPdata(PackData):$/;"	c
+__init__	code\bspdata.py	/^	def __init__(self, modpath):$/;"	m	class:BSPdata
+wpics	code\bspdata.py	/^	def wpics(self, dirname, replace, xitem):$/;"	m	class:BSPdata
 Building	code\building.py	/^class Building(Packer):$/;"	c
 __init__	code\building.py	/^	def __init__(self, mod):$/;"	m	class:Building
 renameSubdir	code\building.py	/^	def renameSubdir(self, src):$/;"	m	class:Building
-runAll	code\building.py	/^	def runAll(self, jsfl, ttdir, fdir):$/;"	m	class:Building
-SVNotFound	code\cleanprocess.py	/^from code.packexp import SVNotFound$/;"	i
-cleanprocess	code\cleanprocess.py	/^def cleanprocess(tmpdir, body=''):$/;"	f
-copy2SVN	code\cleanprocess.py	/^def copy2SVN(src, mtype, types):$/;"	f
-getSvnAddr	code\cleanprocess.py	/^def getSvnAddr(fname,mtype, types):$/;"	f
+runAll	code\building.py	/^	def runAll(self, jsfl, ttdir, fdir, flock):$/;"	m	class:Building
+Cleanprocess	code\cleanprocess.py	/^class Cleanprocess:$/;"	c
+__init__	code\cleanprocess.py	/^	def __init__(self):$/;"	m	class:Cleanprocess
+cleanprocess	code\cleanprocess.py	/^	def cleanprocess(self,startime, body=''):$/;"	m	class:Cleanprocess
+copy2SVN	code\cleanprocess.py	/^	def copy2SVN(self, src, types,mtype,fullname):$/;"	m	class:Cleanprocess
+getSvnAddr	code\cleanprocess.py	/^	def getSvnAddr(self, fname,types,mtype):$/;"	m	class:Cleanprocess
+getpath	code\cleanprocess.py	/^	def getpath(self):$/;"	m	class:Cleanprocess
 DBody	code\dbody.py	/^class DBody(Packer):$/;"	c
 __init__	code\dbody.py	/^	def __init__(self, mod):$/;"	m	class:DBody
 dealPng	code\dbody.py	/^	def dealPng(self, dirsrc):$/;"	m	class:DBody
@@ -22,8 +31,6 @@ __init__	code\head.py	/^	def __init__(self,mod):$/;"	m	class:Head
 dealPng	code\head.py	/^	def dealPng(self, dirsrc):$/;"	m	class:Head
 DEBUG	code\misc.py	/^DEBUG = True$/;"	v
 FLOCK	code\misc.py	/^FLOCK = threading.Lock()$/;"	v
-args	code\misc.py	/^	args = 'a,b,c,d,e'$/;"	v
-func	code\misc.py	/^	func = 'newfunc'$/;"	v
 genThread	code\misc.py	/^def genThread(func, *args):$/;"	f
 threading	code\misc.py	/^import threading $/;"	i
 baseName	code\packHelper.py	/^def baseName(path):$/;"	f
@@ -32,14 +39,14 @@ copyFile	code\packHelper.py	/^def copyFile(src, dest):$/;"	f
 copyFiles	code\packHelper.py	/^def copyFiles(src, dest, recur=True,ignore=None):$/;"	f
 countDir	code\packHelper.py	/^def countDir(root):$/;"	f
 countFile	code\packHelper.py	/^def countFile(root):$/;"	f
+delFiles	code\packHelper.py	/^def delFiles(files):$/;"	f
 dirName	code\packHelper.py	/^def dirName(path):$/;"	f
 emptyDir	code\packHelper.py	/^def emptyDir(path):$/;"	f
 genPath	code\packHelper.py	/^def genPath(root, path):$/;"	f
 indent	code\packHelper.py	/^def indent(elem, level=0):$/;"	f
 mkDir	code\packHelper.py	/^def mkDir(paths):$/;"	f
-nonemptyDir	code\packHelper.py	/^def nonemptyDir(path):$/;"	f
 os	code\packHelper.py	/^import os $/;"	i
-rmDir	code\packHelper.py	/^def rmDir(dirname):$/;"	f
+rmDir	code\packHelper.py	/^def rmDir(dirnames):$/;"	f
 scanDir	code\packHelper.py	/^def scanDir(root, withpath=True):$/;"	f
 scanFile	code\packHelper.py	/^def scanFile(root, withpath=True):$/;"	f
 scanFiles	code\packHelper.py	/^def scanFiles(root,withpath=True):$/;"	f
@@ -65,90 +72,88 @@ witem	code\packdata.py	/^	def witem(self,types='movie', iname='mc', lname='Anima
 wlabel	code\packdata.py	/^	def wlabel(self, dirname, replace, xitem):$/;"	m	class:PackData
 wpics	code\packdata.py	/^	def wpics(self, dirname, replace, xitem):$/;"	m	class:PackData
 xml	code\packdata.py	/^import xml.etree.ElementTree as et$/;"	i
+Cleanprocess	code\packer.py	/^from code.cleanprocess import Cleanprocess$/;"	i
 Image	code\packer.py	/^from PIL import Image, ImageDraw$/;"	i
 ImageDraw	code\packer.py	/^from PIL import Image, ImageDraw$/;"	i
 PackData	code\packer.py	/^from code.packdata import PackData$/;"	i
 Packer	code\packer.py	/^class Packer(object):$/;"	c
 __init__	code\packer.py	/^	def __init__(self, modtype,fpath):$/;"	m	class:Packer
-chkEmpty	code\packer.py	/^	def chkEmpty(self, name, elist):$/;"	m	class:Packer
-copy2SVN	code\packer.py	/^from code.cleanprocess import copy2SVN$/;"	i
 cutimg	code\packer.py	/^	def cutimg(self,data, imgfile, out):$/;"	m	class:Packer
 et	code\packer.py	/^import xml.etree.ElementTree as et$/;"	i
 etree	code\packer.py	/^import xml.etree.ElementTree as et$/;"	i
-formatDir	code\packer.py	/^	def formatDir(self,fpath):$/;"	m	class:Packer
-getEmpty	code\packer.py	/^	def getEmpty(self, mod):$/;"	m	class:Packer
+formatDir	code\packer.py	/^	def formatDir(self):$/;"	m	class:Packer
+getEmptyStatus	code\packer.py	/^	def getEmptyStatus(self, subdir):$/;"	m	class:Packer
 mv2finalSource	code\packer.py	/^	def mv2finalSource(self, fdir, jsfl, fname=None):$/;"	m	class:Packer
-runAll	code\packer.py	/^	def runAll(self, jsfl, ttdir, fdir):$/;"	m	class:Packer
+runAll	code\packer.py	/^	def runAll(self, jsfl, ttdir, fdir, flock):$/;"	m	class:Packer
 ttcutimg	code\packer.py	/^	def ttcutimg(self,src):$/;"	m	class:Packer
 ttpack	code\packer.py	/^	def ttpack(self,src,out):     #src directory name such sas 1_2 , 2_x ...$/;"	m	class:Packer
 xml	code\packer.py	/^import xml.etree.ElementTree as et$/;"	i
 LastOpNotClean	code\packexp.py	/^class LastOpNotClean(PackExp):$/;"	c
 PackExp	code\packexp.py	/^class PackExp(Exception):$/;"	c
+PackFinish	code\packexp.py	/^class PackFinish(PackExp):$/;"	c
 SVNotFound	code\packexp.py	/^class SVNotFound(PackExp):$/;"	c
+SWFNotFound	code\packexp.py	/^class SWFNotFound(PackExp):$/;"	c
+__init__	code\packexp.py	/^	def __init__(self, fpath):$/;"	m	class:SWFNotFound
 __init__	code\packexp.py	/^	def __init__(self, logs,fname='errors.txt'):$/;"	m	class:PackExp
 __init__	code\packexp.py	/^	def __init__(self, logs=''):$/;"	m	class:LastOpNotClean
-__init__	code\packexp.py	/^	def __init__(self,logs):$/;"	m	class:SVNotFound
+__init__	code\packexp.py	/^	def __init__(self, startime, body='', logs=''):$/;"	m	class:PackFinish
+__init__	code\packexp.py	/^	def __init__(self,svnfile,types, mtype, fname,fpath, logs=''):$/;"	m	class:SVNotFound
 datetime	code\packexp.py	/^from datetime import datetime$/;"	i
 getPath	code\packexp.py	/^	def getPath(self):$/;"	m	class:PackExp
-mail	code\packexp.py	/^	def mail(self, receiver, subject, fname=None, mbody=None ):$/;"	m	class:PackExp
+mail	code\packexp.py	/^	def mail(self, subject, fname=None ):$/;"	m	class:PackExp
 wlog	code\packexp.py	/^	def wlog(self):$/;"	m	class:LastOpNotClean
 wlog	code\packexp.py	/^	def wlog(self):$/;"	m	class:PackExp
+wlog	code\packexp.py	/^	def wlog(self):$/;"	m	class:PackFinish
 wlog	code\packexp.py	/^	def wlog(self):$/;"	m	class:SVNotFound
 Preprocess	code\preprocess.py	/^class Preprocess(object):$/;"	c
 __init__	code\preprocess.py	/^	def __init__(self):$/;"	m	class:Preprocess
 chkPath	code\preprocess.py	/^	def chkPath(self, path):$/;"	m	class:Preprocess
 copy2tmpsrc	code\preprocess.py	/^	def copy2tmpsrc(self,dirs, dest, name=None):$/;"	m	class:Preprocess
-formatType	code\preprocess.py	/^	def formatType(self,fn):$/;"	m	class:Preprocess
+formatType	code\preprocess.py	/^	def formatType(self):$/;"	m	class:Preprocess
 getpath	code\preprocess.py	/^	def getpath(self):$/;"	m	class:Preprocess
+getsrc	code\preprocess.py	/^	def getsrc(self, src):$/;"	m	class:Preprocess
 preprocess	code\preprocess.py	/^	def preprocess(self):$/;"	m	class:Preprocess
 reFiles	code\preprocess.py	/^	def reFiles(self, dest):$/;"	m	class:Preprocess
-renameCN	code\preprocess.py	/^	def renameCN(self):$/;"	m	class:Preprocess
 DEBUG	code\sendmail.py	/^from code.misc import DEBUG$/;"	i
+LASTOPNOTCLEAN	code\sendmail.py	/^LASTOPNOTCLEAN = '上次运行时程序意外中止，请查看tmp目录 '$/;"	v
 MIMEMultipart	code\sendmail.py	/^from email.mime.multipart import MIMEMultipart$/;"	i
 MIMEText	code\sendmail.py	/^from email.mime.text import MIMEText$/;"	i
 MYRECEIVER	code\sendmail.py	/^	MYRECEIVER = ['190971120@qq.com','2319406132@qq.com']$/;"	v
 MYRECEIVER	code\sendmail.py	/^	MYRECEIVER = ['2319406132@qq.com']$/;"	v
-SUCCBODY	code\sendmail.py	/^SUCCBODY = '打包%s完成'$/;"	v
+SUCCBODY	code\sendmail.py	/^SUCCBODY = '打包%s完成, 本次打包开始时间为%s, %s完成打包 '$/;"	v
 SUCCSUBJECT	code\sendmail.py	/^SUCCSUBJECT = '打包完成'$/;"	v
+SVNOTFOUND	code\sendmail.py	/^SVNOTFOUND = '在svn.txt地址中无法找到类型为 %s-%s 位于 %s 名为 %s 的swf文件 '$/;"	v
 sendMail	code\sendmail.py	/^def sendMail(receiver,subject,fname=None,mbody=None,server=None):$/;"	f
 smtplib	code\sendmail.py	/^import smtplib$/;"	i
 Soldier	code\soldier.py	/^class Soldier(Packer):$/;"	c
 __init__	code\soldier.py	/^	def __init__(self,mod):$/;"	m	class:Soldier
 dealPng	code\soldier.py	/^	def dealPng(self, src):$/;"	m	class:Soldier
+BSoldier	run.py	/^from code.bsoldier import BSoldier$/;"	i
 Body	run.py	/^from code.body import Body$/;"	i
 Building	run.py	/^from code.building import Building$/;"	i
+Cleanprocess	run.py	/^from code.cleanprocess import Cleanprocess$/;"	i
 DBody	run.py	/^from code.dbody import DBody$/;"	i
 DHead	run.py	/^from code.dhead import DHead$/;"	i
 FLOCK	run.py	/^from code.misc import genThread, FLOCK$/;"	i
 Head	run.py	/^from code.head import Head$/;"	i
 Preprocess	run.py	/^from code.preprocess import Preprocess$/;"	i
 Soldier	run.py	/^from code.soldier import Soldier$/;"	i
+clean	run.py	/^	clean = Cleanprocess()$/;"	v
+filenames	run.py	/^filenames = []$/;"	v
 genThread	run.py	/^from code.misc import genThread, FLOCK$/;"	i
-pprocess	run.py	/^pprocess = Preprocess()$/;"	v
-process	run.py	/^def process(pprocess, flock):$/;"	f
-run	run.py	/^def run(pack, jsfl, ttdir, fdir, flock):$/;"	f
-PackData	test.py	/^from code.packdata import PackData$/;"	i
+msg	run.py	/^		msg = os.read(pipein, 32).decode()$/;"	v
+pipes	run.py	/^pipes = []$/;"	v
+pprocess	run.py	/^	pprocess = Preprocess()$/;"	v
+process	run.py	/^def process(pprocess, filenames, pipes, flock):$/;"	f
+run	run.py	/^def run(pack, jsfl, ttdir, fdir, flock, pipeout):$/;"	f
+startime	run.py	/^	startime = datetime.now().strftime('%Y-%m-%d %H:%M:%S')$/;"	v
+Cleanprocess	test.py	/^from code.cleanprocess import Cleanprocess$/;"	i
 PackExp	test.py	/^from code.packexp import PackExp$/;"	i
-Soldier	test.py	/^from code.soldier import Soldier$/;"	i
-backpng	test.py	/^backpng = PackData.wlabel(dirname,pngnums,pdata.status,dict(),titem)$/;"	v
-backpngs	test.py	/^backpngs = PackData.wpics(dirname, pngxy,dict(),out+'_cut', titem)$/;"	v
-code	test.py	/^import code.packHelper as helper$/;"	i
-copySVN	test.py	/^from code.cleanprocess import copySVN$/;"	i
-dirname	test.py	/^dirname = '1_1'$/;"	v
-fn	test.py	/^fn = r'D:\\dev\\packflash\\tmp\\tempsource\\armor_factory-jz'$/;"	v
-helper	test.py	/^import code.packHelper as helper$/;"	i
-ibn	test.py	/^		ibn = helper.baseName(i)$/;"	v
+Preprocess	test.py	/^from code.preprocess import Preprocess $/;"	i
+clean	test.py	/^	clean = Cleanprocess()$/;"	v
+fn	test.py	/^fn = r'D:\\dev\\packflash\\finalsource\/units\/soldiers\/gunner_en.swf'$/;"	v
 jsfl	test.py	/^jsfl = r'D:\\dev\\packflash\\tmp\\kpjsfl'$/;"	v
-modname	test.py	/^modname = 'armor_factory'$/;"	v
-os	test.py	/^import os$/;"	i
-out	test.py	/^out = r'd:\\dev\\packflash\\tmp\\texture\\armor_factory-jz'$/;"	v
-pdata	test.py	/^pdata = PackData(fn)$/;"	v
-pngnums	test.py	/^pngnums =PackData.countPics(fn,pdata.subdir,pdata.status)$/;"	v
-pngxy	test.py	/^pngxy = PackData.getitems(out,pdata.subdir,replace=dict())$/;"	v
-root	test.py	/^root = PackData.genroot(modname)$/;"	v
-titem	test.py	/^titem = PackData.witem(root)$/;"	v
-tmp	test.py	/^tmp = helper.scanFile(out)$/;"	v
-xmlpath	test.py	/^xmlpath = dict()$/;"	v
+src	test.py	/^src = 'd:\/dev\/packflash\/src'$/;"	v
 code	tmp.py	/^import code.packHelper as helper$/;"	i
 dest	tmp.py	/^dest = 'd:\/dev\/packflash\/tmp\/tempsource'$/;"	v
 dirs	tmp.py	/^dirs = helper.scanDir(srcdir)$/;"	v

@@ -8,7 +8,7 @@
 如：
 d:/dev/xx
 g:/test/svn
-3、code下的文件不能删，run.py，svn.txt不能删
+3、code下的文件不能删，run.py，svn.txt不能删,不需要建立空目录、空文件夹
 
 4、资源放在src目录下
 

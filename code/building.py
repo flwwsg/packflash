@@ -11,8 +11,6 @@ class Building(Packer):
 		self.subnum = -3 #1_1, 1_2 xx
 		self.subdirs = ['1_1','1_2','1_3','1_4','1_5']
 		self.replace =dict()
-		self.types = ['citizen', 'construction','custom','factories','offers',
-						'office', 'storages','structural', 'upgrade']
 		Packer.__init__(self, 'buildings', mod)
 		
 
@@ -35,7 +33,6 @@ class Building(Packer):
 
 		#执行扫描并生成xml
 		for subdir in pdata.subdir:
-
 			fname = self.modname+'_'+subdir
 			fullname = self.fullname+'_'+subdir     #for multiple threading 
 			pdata.genjsfl(fullname,jsfl)
