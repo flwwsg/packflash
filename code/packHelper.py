@@ -22,7 +22,7 @@ def rmDir(dirnames):
 		dirnames = [dirnames]
 	for dirname in dirnames:
 		if not os.path.exists(dirname):
-			return None
+			continue
 		shutil.rmtree(dirname)
 	
 def delFiles(files):

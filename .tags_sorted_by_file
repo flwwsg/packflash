@@ -1,6 +1,6 @@
 Body	code\body.py	/^class Body(Packer):$/;"	c
 __init__	code\body.py	/^	def __init__(self, mod):$/;"	m	class:Body
-dealPng	code\body.py	/^	def dealPng(self, dirsrc):$/;"	m	class:Body
+dealPng	code\body.py	/^	def dealPng(self, src):$/;"	m	class:Body
 BSPdata	code\bsoldier.py	/^from code.bspdata import BSPdata$/;"	i
 BSoldier	code\bsoldier.py	/^class BSoldier(Packer):$/;"	c
 __init__	code\bsoldier.py	/^	def __init__(self,mod):$/;"	m	class:BSoldier
@@ -20,15 +20,15 @@ getSvnAddr	code\cleanprocess.py	/^	def getSvnAddr(self, fname,types,mtype):$/;"	
 getpath	code\cleanprocess.py	/^	def getpath(self):$/;"	m	class:Cleanprocess
 DBody	code\dbody.py	/^class DBody(Packer):$/;"	c
 __init__	code\dbody.py	/^	def __init__(self, mod):$/;"	m	class:DBody
-dealPng	code\dbody.py	/^	def dealPng(self, dirsrc):$/;"	m	class:DBody
+dealPng	code\dbody.py	/^	def dealPng(self, src):$/;"	m	class:DBody
 getModname	code\dbody.py	/^	def getModname(self):$/;"	m	class:DBody
 DHead	code\dhead.py	/^class DHead(Packer):$/;"	c
 __init__	code\dhead.py	/^	def __init__(self,mod):$/;"	m	class:DHead
-dealPng	code\dhead.py	/^	def dealPng(self, dirsrc):$/;"	m	class:DHead
+dealPng	code\dhead.py	/^	def dealPng(self, src):$/;"	m	class:DHead
 getModname	code\dhead.py	/^	def getModname(self):$/;"	m	class:DHead
 Head	code\head.py	/^class Head(Packer):$/;"	c
 __init__	code\head.py	/^	def __init__(self,mod):$/;"	m	class:Head
-dealPng	code\head.py	/^	def dealPng(self, dirsrc):$/;"	m	class:Head
+dealPng	code\head.py	/^	def dealPng(self, src):$/;"	m	class:Head
 DEBUG	code\misc.py	/^DEBUG = True$/;"	v
 FLOCK	code\misc.py	/^FLOCK = threading.Lock()$/;"	v
 genThread	code\misc.py	/^def genThread(func, *args):$/;"	f
@@ -77,7 +77,7 @@ Image	code\packer.py	/^from PIL import Image, ImageDraw$/;"	i
 ImageDraw	code\packer.py	/^from PIL import Image, ImageDraw$/;"	i
 PackData	code\packer.py	/^from code.packdata import PackData$/;"	i
 Packer	code\packer.py	/^class Packer(object):$/;"	c
-__init__	code\packer.py	/^	def __init__(self, modtype,fpath):$/;"	m	class:Packer
+__init__	code\packer.py	/^	def __init__(self, modtype,fpath, modnamelocation=-1):$/;"	m	class:Packer
 cutimg	code\packer.py	/^	def cutimg(self,data, imgfile, out):$/;"	m	class:Packer
 et	code\packer.py	/^import xml.etree.ElementTree as et$/;"	i
 etree	code\packer.py	/^import xml.etree.ElementTree as et$/;"	i

@@ -22,7 +22,7 @@ class DBody(Packer):
 		self.fstatus = {'1_idle','2_move','3_attack_1','4_attack_2',
 						'5_attack_3','6_die_1','7_die_2','8_die_3'}
 		self.dealPng(mod)
-		Packer.__init__(self,'towers_body', mod)
+		Packer.__init__(self,'towers_body', mod, 0)
 
 	def getModname(self):
 		tmp=dict()
@@ -41,7 +41,7 @@ class DBody(Packer):
 			ipath = genPath(subdir, '1_idle')
 			mpath = genPath(subdir, '2_move')
 			apath = genPath(subdir, '3_attack_1')
-			a31 = '3_attack_1' in empty:
+			a31 = '3_attack_1' in empty
 			
 			for path in empty:
 				dpath = genPath(subdir, '6_die_1')

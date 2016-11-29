@@ -93,10 +93,10 @@ class Head(Packer):
 				#different from body
 				if '4_attack_2' in empty:
 					dest = genPath(subdir,'4_attack_2')
-					copyFile(apath, dest)
+					copyFiles(apath, dest)
 				if '5_attack_3' in empty:
 					dest = genPath(subdir,'5_attack_3')
-					copyFile(apath, dest)
+					copyFiles(apath, dest)
 
 				#the same as body
 				if '6_die_1' in empty:

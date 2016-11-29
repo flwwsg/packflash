@@ -34,14 +34,16 @@ class Preprocess(object):
 	@classmethod
 	def preprocess(self):
 		self.formatType()
-		dirs = emptyDir(self.srcdir)
-		rmDir(dirs)
+		dirs = True
+		while dirs:
+			dirs = emptyDir(self.srcdir)
+			for tdir in dirs:
+				os.rmdir(tdir)
 		dirs = scanDir(self.srcdir)
 		self.copy2tmpsrc(dirs, self.tspath)
 
 	@classmethod
 	def copy2tmpsrc(self,dirs, dest, name=None):
-		# print(dirs)
 		for path in dirs:
 			newpath = self.chkPath(path)
 			if len(newpath) < 5:

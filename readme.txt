@@ -8,11 +8,11 @@
 如：
 d:/dev/xx
 g:/test/svn
-3、code下的文件不能删，run.py，svn.txt不能删,不需要建立空目录、空文件夹,可以删除空目录、空文件夹
+3、code下的文件不能删，run.py，svn.txt不能删,不需要建立空目录、空文件夹,同时可以删除空目录、空文件夹
 
 4、资源放在src目录下
 
-5、python需要安装pillow库，使用python 3.5.2	
+5、python需要安装pillow库，使用python 3.5.2
 
 6、安装kpjsfl
 从 https://github.com/masterKPr/KPJSFL/下载jsfl库，运行source目录下的Installer.jsfl

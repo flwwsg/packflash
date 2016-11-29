@@ -61,7 +61,7 @@ __init__	.\code\dbody.py	/^	def __init__(self, mod):$/;"	m	class:DBody
 __init__	.\code\dhead.py	/^	def __init__(self,mod):$/;"	m	class:DHead
 __init__	.\code\head.py	/^	def __init__(self,mod):$/;"	m	class:Head
 __init__	.\code\packdata.py	/^	def __init__(self, modpath):$/;"	m	class:PackData
-__init__	.\code\packer.py	/^	def __init__(self, modtype,fpath):$/;"	m	class:Packer
+__init__	.\code\packer.py	/^	def __init__(self, modtype,fpath, modnamelocation=-1):$/;"	m	class:Packer
 __init__	.\code\packexp.py	/^	def __init__(self, fpath):$/;"	m	class:SWFNotFound
 __init__	.\code\packexp.py	/^	def __init__(self, logs,fname='errors.txt'):$/;"	m	class:PackExp
 __init__	.\code\packexp.py	/^	def __init__(self, logs=''):$/;"	m	class:LastOpNotClean
@@ -85,10 +85,10 @@ countFile	.\code\packHelper.py	/^def countFile(root):$/;"	f
 countPics	.\code\packdata.py	/^	def countPics(self): #modpath = command xxx$/;"	m	class:PackData
 cutimg	.\code\packer.py	/^	def cutimg(self,data, imgfile, out):$/;"	m	class:Packer
 datetime	.\code\packexp.py	/^from datetime import datetime$/;"	i
-dealPng	.\code\body.py	/^	def dealPng(self, dirsrc):$/;"	m	class:Body
-dealPng	.\code\dbody.py	/^	def dealPng(self, dirsrc):$/;"	m	class:DBody
-dealPng	.\code\dhead.py	/^	def dealPng(self, dirsrc):$/;"	m	class:DHead
-dealPng	.\code\head.py	/^	def dealPng(self, dirsrc):$/;"	m	class:Head
+dealPng	.\code\body.py	/^	def dealPng(self, src):$/;"	m	class:Body
+dealPng	.\code\dbody.py	/^	def dealPng(self, src):$/;"	m	class:DBody
+dealPng	.\code\dhead.py	/^	def dealPng(self, src):$/;"	m	class:DHead
+dealPng	.\code\head.py	/^	def dealPng(self, src):$/;"	m	class:Head
 dealPng	.\code\soldier.py	/^	def dealPng(self, src):$/;"	m	class:Soldier
 delFiles	.\code\packHelper.py	/^def delFiles(files):$/;"	f
 dest	.\tmp.py	/^dest = 'd:\/dev\/packflash\/tmp\/tempsource'$/;"	v

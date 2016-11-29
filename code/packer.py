@@ -10,9 +10,10 @@ from code.cleanprocess import Cleanprocess
 
 class Packer(object):
 	"""packing pictures for flash"""
-	def __init__(self, modtype,fpath):
+	def __init__(self, modtype,fpath, modnamelocation=-1):
 		self.type = modtype
 		self.fpath = fpath
+		self.modnamelocation = modnamelocation
 		self.formatDir()
 		self.fullname = '-'.join([self.modname, self.modtype, self.type])
 

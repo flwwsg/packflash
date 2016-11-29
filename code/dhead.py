@@ -42,7 +42,7 @@ class DHead(Packer):
 		if self.modname in tmp.keys():
 			self.modname = tmp[self.modname]
 
-	def dealPng(self, dirsrc):
+	def dealPng(self, src):
 		realsudirs = scanDir(src)
 		for subdir in realsudirs:
 			empty = self.getEmptyStatus(subdir)
@@ -50,7 +50,7 @@ class DHead(Packer):
 			ipath = genPath(subdir, '1_idle')
 			mpath = genPath(subdir, '2_move')
 			apath = genPath(subdir, '3_attack_1')
-			a31 = '3_attack_1' in empty:
+			a31 = '3_attack_1' in empty
 			
 			for path in empty:
 				dpath = genPath(subdir, '6_die_1')
@@ -62,7 +62,7 @@ class DHead(Packer):
 				elif path == '8_die_3':
 					copyFile(dfirstpng, dfirstpng.replace('6_die_1', '8_die_3'))
 				#end 
-				
+
 				elif not a31:
 					afirstpng = scanFile(apath)[0]
 					dest = afirstpng.replace('3_attack_1',path)

@@ -16,8 +16,7 @@ class Cleanprocess:
 
 	@classmethod
 	def cleanprocess(self,startime, body=''):
-		if not DEBUG:
-			rmDir(self.tpath)
+		rmDir(self.tpath)
 		if not body:
 			return
 		raise PackFinish(startime, body)
