@@ -9,6 +9,7 @@ from code.dhead import DHead
 from code.body import Body
 from code.dbody import DBody
 from code.bsoldier import BSoldier
+from code.packfont import PackFont
 from code.packexp import *
 from code.preprocess import Preprocess
 from code.misc import genThread, FLOCK
@@ -67,6 +68,14 @@ def process(pprocess, filenames, pipes, flock):
 		newthread = genThread(run, pack, jsfl, ttdir, finalpath, flock, pipeout)
 		pipes.append(pipein)
 		# run(pack, jsfl, ttdir, finalpath, flock)
+
+	tmpfiles = scanFile(tsrcdir)
+	for file in tmpfiles:
+		print('it is font')
+		pack = PackFont(file)
+		pipein, pipeout = os.pipe()
+		newthread = genThread(run, pack, jsfl, ttdir, finalpath, flock, pipeout)
+		pipes.append(pipein)
 
 filenames = []
 pipes = []

@@ -39,8 +39,14 @@ class Preprocess(object):
 			dirs = emptyDir(self.srcdir)
 			for tdir in dirs:
 				os.rmdir(tdir)
+		if not os.path.exists(self.srcdir):
+			raise JobsDone()
 		dirs = scanDir(self.srcdir)
-		self.copy2tmpsrc(dirs, self.tspath)
+		if dirs:
+			self.copy2tmpsrc(dirs, self.tspath)
+
+		#copy files such as font 
+		copyFiles(src=self.srcdir, dest=self.tspath, recur=False)
 
 	@classmethod
 	def copy2tmpsrc(self,dirs, dest, name=None):

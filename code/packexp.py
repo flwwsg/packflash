@@ -59,3 +59,9 @@ class SWFNotFound(PackExp):
 	def __init__(self, fpath):
 		logs = fpath + 'not exists!!! something wrong.'
 		PackExp.__init__(self, logs)		
+
+class JobsDone(PackExp):
+	def __init__(self, logs=''):
+		logs = 'src目录没有文件需要打包' + logs
+		PackExp.__init__(self, logs)
+		
