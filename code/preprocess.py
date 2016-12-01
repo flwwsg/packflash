@@ -42,8 +42,7 @@ class Preprocess(object):
 		if not os.path.exists(self.srcdir):
 			raise JobsDone()
 		dirs = scanDir(self.srcdir)
-		if dirs:
-			self.copy2tmpsrc(dirs, self.tspath)
+		self.copy2tmpsrc(dirs, self.tspath)
 
 		#copy files such as font 
 		copyFiles(src=self.srcdir, dest=self.tspath, recur=False)
@@ -137,7 +136,7 @@ class Preprocess(object):
 	
 	@classmethod
 	def getsrc(self, src):
-		keep = ['1_2']
+		keep = ['1_2','2_0','3_1', '4_7','5_3','6_6','7_5','8_4']
 		tmp = src.split(os.sep)
 		bn = tmp[-2]
 		newsrc = os.sep.join(tmp[:-2])

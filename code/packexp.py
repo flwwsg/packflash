@@ -4,7 +4,9 @@ from datetime import datetime
 from code.packHelper import *
 
 class PackExp(Exception):
+	numIns = 0
 	def __init__(self, logs,fname='errors.txt'):
+		PackExp.numIns += 1
 		self.now = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
 		self.logs = logs
 		self.getPath()
@@ -49,7 +51,11 @@ class PackFinish(PackExp):
 	def __init__(self, startime, body='', logs=''):
 		self.subject = SUCCSUBJECT
 		now = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-		logs = SUCCBODY % (body, startime, now) + logs
+		if PackExp.numIns != 0:
+			newbody = SUCCBODYEXP
+		else:
+			newbody = SUCCBODY
+		logs = newbody % (body, startime, now) + logs
 		PackExp.__init__(self, logs)
 
 	def wlog(self):
@@ -62,6 +68,15 @@ class SWFNotFound(PackExp):
 
 class JobsDone(PackExp):
 	def __init__(self, logs=''):
-		logs = 'src目录没有文件需要打包' + logs
+		logs = 'src目录没有文件需要打包 ' + logs
 		PackExp.__init__(self, logs)
+
+class PackNotSupported(PackExp):
+	def __init__(self, fname):
+		logs = '不支持的文件类型 '+fname
+		PackExp.__init__(self, logs)
+
+	def wlog(self):
+		PackExp.wlog(self)
+		self.mail(subject=self.logs)
 		

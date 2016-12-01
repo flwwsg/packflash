@@ -7,6 +7,7 @@ from PIL import Image, ImageDraw
 import xml.etree.ElementTree as et
 from code.packdata import PackData
 from code.cleanprocess import Cleanprocess
+from code.packexp import *
 
 class Packer(object):
 	"""packing pictures for flash"""
@@ -23,6 +24,8 @@ class Packer(object):
 		path = self.fpath
 		path = baseName(path)
 		newtype = chkType(path)
+		if not newtype:
+			raise PackNotSupported(self.fpath)
 		newpath = path.split('#')[-1].split('-')[0]
 		newpath = newpath+'-'+newtype
 
@@ -115,7 +118,6 @@ class Packer(object):
 			fname = baseName(file)
 			cmd = "TexturePacker --max-width 4096 --max-height 4096 --pack-mode Best --size-constraints AnySize --data %s/%s.xml --format sparrow --sheet %s/%s.png %s" % (
 					out, fname, out, fname, file)
-			# print(file, fname, cmd)
 			output = os.popen(cmd).read()        #must using read
 
 	@classmethod

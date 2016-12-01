@@ -9,14 +9,15 @@ from code.dhead import DHead
 from code.body import Body
 from code.dbody import DBody
 from code.bsoldier import BSoldier
-from code.packfont import PackFont
 from code.packexp import *
 from code.preprocess import Preprocess
 from code.misc import genThread, FLOCK
 from code.cleanprocess import Cleanprocess
 
-def run(pack, jsfl, ttdir, fdir, flock, pipeout):
+def run(pack, jsfl, ttdir, fdir, flock, pipeout,modpath):
 	try:
+		if not pack:
+			raise PackNotSupported(modpath)
 		pack.runAll(jsfl, ttdir, fdir, flock)
 	except PackExp as e:
 		e.wlog()
@@ -47,6 +48,8 @@ def process(pprocess, filenames, pipes, flock):
 			elif count == 1:
 				print('Processing building-soldier')
 				pack = BSoldier(modpath)
+			else:
+				pack = False
 		elif count == 5:
 			print('Processing soldier')
 			pack = Soldier(modpath)
@@ -64,18 +67,12 @@ def process(pprocess, filenames, pipes, flock):
 			else:
 				print('Processing Body')
 				pack = Body(modpath)
+		else:
+			pack = False
 		pipein, pipeout = os.pipe()
-		newthread = genThread(run, pack, jsfl, ttdir, finalpath, flock, pipeout)
+		newthread = genThread(run, pack, jsfl, ttdir, finalpath, flock, pipeout,modpath)
 		pipes.append(pipein)
 		# run(pack, jsfl, ttdir, finalpath, flock)
-
-	tmpfiles = scanFile(tsrcdir)
-	for file in tmpfiles:
-		print('it is font')
-		pack = PackFont(file)
-		pipein, pipeout = os.pipe()
-		newthread = genThread(run, pack, jsfl, ttdir, finalpath, flock, pipeout)
-		pipes.append(pipein)
 
 filenames = []
 pipes = []

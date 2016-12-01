@@ -191,12 +191,12 @@ class PackData(object):
 		self.xitem = et.SubElement(self.root, types, {'item_name':iname, 'link_name': lname})
 	
 	@classmethod
-	def savexml(self,fname):
+	def savexml(self,fname,encoding='utf-8'):
 		if DEBUG:
 			root = indent(self.root)
 		else:
 			root = self.root
-		et.ElementTree(root).write(fname)
+		et.ElementTree(root).write(fname, encoding=encoding)
 
 	@classmethod
 	def wbody(self, pdata, dirname, replace):

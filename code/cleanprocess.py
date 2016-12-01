@@ -16,9 +16,8 @@ class Cleanprocess:
 
 	@classmethod
 	def cleanprocess(self,startime, body=''):
-		rmDir(self.tpath)
-		if not body:
-			return
+		if not DEBUG and PackExp.numIns == 0:
+			rmDir(self.tpath)
 		raise PackFinish(startime, body)
 
 	@classmethod
