@@ -121,7 +121,7 @@ class Packer(object):
 			output = os.popen(cmd).read()        #must using read
 
 	@classmethod
-	def ttcutimg(self,src):
+	def ttcutimg(self,src,cutout=None):
 		sfiles = scanFile(src)
 		bnsrc = baseName(src)
 		# print(src, sfiles)
@@ -141,7 +141,10 @@ class Packer(object):
 				name = subtt.get('name')
 				name += '.png'
 				name =genPath( pic['png'][:-4],name)
-				out = name.replace(bnsrc, bnsrc+'_cut' )
+				if not cutout:
+					out = name.replace(bnsrc, bnsrc+'_cut' )
+				else:
+					out = name.replace(bnsrc, cutout)
 				data = dict()
 				data['x'] = int(x)
 				data['y'] = int(y)

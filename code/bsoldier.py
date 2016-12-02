@@ -21,14 +21,15 @@ class BSoldier(Packer):
 		self.subdirs = ['1_2']
 		Packer.__init__(self, 'soldiers',mod)
 
-
 	def runAll(self, jsfl, ttdir, fdir, flock):
-		out = ttdir+'/'+baseName(self.fpath)
+		bn = baseName(self.fpath)
+		out = ttdir+'/'+ bn
 		self.ttpack(self.fpath,out)       #xmlpaths = dict(1_2=xx.xml)
-		cutout =out+ '_cut'
+
+		cutout =out+'_cut'
 
 		#cutting small picture saved at tmp/texture/xxx_cut from picture processed by texture on tmp/texture/xxx
-		self.ttcutimg(out)  
+		self.ttcutimg(out,genPath(bn+'_cut','1_2'))  
 
 		#执行扫描并生成{self.fullname}xml  
 		pdata = BSPdata(cutout)
@@ -50,3 +51,13 @@ class BSoldier(Packer):
 			if not os.path.exists(location):
 				raise SWFNotFound(location)
 			clean.copy2SVN(location, self.type, self.modtype,self.fpath)
+
+	@classmethod
+	def ttpack(self,src,out):     #src directory name such sas 1_2 , 2_x ...
+		sfiles = scanDir(src)
+		sfiles = scanDir(sfiles[0])
+		for file in sfiles:
+			fname = baseName(file)
+			cmd = "TexturePacker --max-width 4096 --max-height 4096 --pack-mode Best --size-constraints AnySize --data %s/%s.xml --format sparrow --sheet %s/%s.png %s" % (
+					out, fname, out, fname, file)
+			output = os.popen(cmd).read()        #must using read

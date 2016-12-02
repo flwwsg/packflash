@@ -29,7 +29,6 @@ class PackData(object):
 		subdir = self.subdir
 		status = self.status
 		pngnums =dict()
-		# print(dirs)
 		for dirname in subdir:      # subdir = 1_2 , xx
 			path = modpath +'/'+ dirname
 			newstatus = dict()

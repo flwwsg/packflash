@@ -41,3 +41,49 @@ class BSPdata(PackData):
 			self.pindex += 1
 
 		self.backpngs = backpngs
+
+	def getitems(self, ttxml,replace):
+		tmp = scanFile(ttxml)
+		xmlpath = list()
+		for i in tmp:
+			if i[-3:] == 'xml':
+				ibn = baseName(i)
+				xmlpath.append(i)
+
+		pngxy = dict()
+		self.subdir.extend(sorted(replace.keys()))
+
+		for dirname in self.subdir:
+			if dirname in replace.keys():
+				newdirname = replace[dirname]
+			else:
+				newdirname = dirname
+			# print(newdirname, dirname)
+			pngxy[dirname] = BSPdata.getxy(xmlpath)
+		self.pngxy = pngxy
+
+	@classmethod
+	def getxy(self, paths):
+		tmplist = list()
+		for path in paths:
+			ttxml = et.parse(path)
+			root = ttxml.getroot()
+
+			tmp = root.get('imagePath')
+			status = tmp[:-4]
+			for subtt in root:
+				pngpath = subtt.get('name')
+				xpath, xname = status, pngpath
+
+				frameWidth = int(subtt.get('frameWidth'))
+				frameHeight = int(subtt.get('frameHeight'))
+				frameX = int(subtt.get('frameX'))
+				frameY = int(subtt.get('frameY'))
+				width = int(subtt.get('width'))
+				height = int(subtt.get('height'))
+				x = abs(frameX)-frameWidth/2
+				y = abs(frameY)-frameHeight/2
+				dd = dict(xname=xname, xpath=xpath, x=x,y=y, width=width, height=height)
+
+				tmplist.append(dd)
+		return tmplist
