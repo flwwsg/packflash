@@ -65,18 +65,12 @@ class Body(Packer):
 				a31firstpng = scanFile(apath)[0]
 				ipath = genPath(subdir,'1_idle')
 				if '1_idle' in empty:
-					if '2_move' in empty:
-						dest = a31firstpng.replace('3_attack_1','1_idle')
-						copyFile(a31firstpng, dest)
-					else:
-						mpath = genPath(subdir, '2_move')
-						mfirstpng = scanFile(mpath)[0]
-						dest = mfirstpng.replace('2_move','1_idle')
-						copyFile(mfirstpng, dest)
+					dest = a31firstpng.replace('3_attack_1','1_idle')
+					copyFile(a31firstpng, dest)
 
 				if '2_move' in empty:
-					dest = genPath(subdir, '2_move')
-					copyFiles(ipath,dest)
+					dest = a31firstpng.replace('3_attack_1','2_move')
+					copyFiles(a31firstpng,dest)
 				if '4_attack_2' in empty:
 					dest = a31firstpng.replace('3_attack_1', '4_attack_2')
 					copyFile(a31firstpng, dest)

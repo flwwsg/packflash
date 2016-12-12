@@ -37,26 +37,28 @@ class DBody(Packer):
 		realsudirs = scanDir(src)
 		for subdir in realsudirs:
 			empty = self.getEmptyStatus(subdir)
-
-			ipath = genPath(subdir, '1_idle')
-			mpath = genPath(subdir, '2_move')
+			print(empty)
 			apath = genPath(subdir, '3_attack_1')
 			a31 = '3_attack_1' in empty
-			
+			# exit()
 			for path in empty:
 				dpath = genPath(subdir, '6_die_1')
 				if path == '7_die_2':
 					copyFiles(dpath, dpath.replace('6_die_1', '7_die_2'))
-				elif path == '8_die_3':
+				if path == '8_die_3':
 					copyFiles(dpath, dpath.replace('6_die_1', '8_die_3'))
-				elif not a31:
+				if not a31:
 					afirstpng = scanFile(apath)[0]
+					path = self.chkdir(path)
 					dest = afirstpng.replace('3_attack_1',path)
 					copyFile(afirstpng, dest)
 
-			os.rename(ipath, ipath.replace('1_idle', '2_idle'))
-			os.rename(mpath, mpath.replace('2_move', '3_move'))
 			if not a31:
 				os.rename(apath, apath.replace('3_attack_1','1_attack_1'))
 
-
+	def chkdir(self, oldir):
+		if oldir == '1_idle':
+			return '2_idle'
+		if oldir == '2_move':
+			return '3_move'
+		return oldir
