@@ -23,6 +23,7 @@ class DBody(Packer):
 						'5_attack_3','6_die_1','7_die_2','8_die_3'}
 		self.dealPng(mod)
 		Packer.__init__(self,'towers_body', mod, 0)
+		self.getModname()
 
 	def getModname(self):
 		tmp=dict()
@@ -37,17 +38,15 @@ class DBody(Packer):
 		realsudirs = scanDir(src)
 		for subdir in realsudirs:
 			empty = self.getEmptyStatus(subdir)
-			print(empty)
 			apath = genPath(subdir, '3_attack_1')
 			a31 = '3_attack_1' in empty
-			# exit()
 			for path in empty:
 				dpath = genPath(subdir, '6_die_1')
 				if path == '7_die_2':
 					copyFiles(dpath, dpath.replace('6_die_1', '7_die_2'))
-				if path == '8_die_3':
+				elif path == '8_die_3':
 					copyFiles(dpath, dpath.replace('6_die_1', '8_die_3'))
-				if not a31:
+				elif not a31:
 					afirstpng = scanFile(apath)[0]
 					path = self.chkdir(path)
 					dest = afirstpng.replace('3_attack_1',path)
@@ -57,8 +56,10 @@ class DBody(Packer):
 				os.rename(apath, apath.replace('3_attack_1','1_attack_1'))
 
 	def chkdir(self, oldir):
-		if oldir == '1_idle':
-			return '2_idle'
-		if oldir == '2_move':
-			return '3_move'
-		return oldir
+		tmp =dict()
+		tmp['1_idle'] = '2_idle'
+		tmp['2_move'] = '3_move'
+		if oldir in tmp.keys():
+			return tmp[oldir]
+		else:
+			return oldir

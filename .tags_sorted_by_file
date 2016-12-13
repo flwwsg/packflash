@@ -5,8 +5,11 @@ BSPdata	code\bsoldier.py	/^from code.bspdata import BSPdata$/;"	i
 BSoldier	code\bsoldier.py	/^class BSoldier(Packer):$/;"	c
 __init__	code\bsoldier.py	/^	def __init__(self,mod):$/;"	m	class:BSoldier
 runAll	code\bsoldier.py	/^	def runAll(self, jsfl, ttdir, fdir, flock):$/;"	m	class:BSoldier
+ttpack	code\bsoldier.py	/^	def ttpack(self,src,out):     #src directory name such sas 1_2 , 2_x ...$/;"	m	class:BSoldier
 BSPdata	code\bspdata.py	/^class BSPdata(PackData):$/;"	c
 __init__	code\bspdata.py	/^	def __init__(self, modpath):$/;"	m	class:BSPdata
+getitems	code\bspdata.py	/^	def getitems(self, ttxml,replace):$/;"	m	class:BSPdata
+getxy	code\bspdata.py	/^	def getxy(self, paths):$/;"	m	class:BSPdata
 wpics	code\bspdata.py	/^	def wpics(self, dirname, replace, xitem):$/;"	m	class:BSPdata
 Building	code\building.py	/^class Building(Packer):$/;"	c
 __init__	code\building.py	/^	def __init__(self, mod):$/;"	m	class:Building
@@ -20,10 +23,12 @@ getSvnAddr	code\cleanprocess.py	/^	def getSvnAddr(self, fname,types,mtype):$/;"	
 getpath	code\cleanprocess.py	/^	def getpath(self):$/;"	m	class:Cleanprocess
 DBody	code\dbody.py	/^class DBody(Packer):$/;"	c
 __init__	code\dbody.py	/^	def __init__(self, mod):$/;"	m	class:DBody
+chkdir	code\dbody.py	/^	def chkdir(self, oldir):$/;"	m	class:DBody
 dealPng	code\dbody.py	/^	def dealPng(self, src):$/;"	m	class:DBody
 getModname	code\dbody.py	/^	def getModname(self):$/;"	m	class:DBody
 DHead	code\dhead.py	/^class DHead(Packer):$/;"	c
 __init__	code\dhead.py	/^	def __init__(self,mod):$/;"	m	class:DHead
+chkdir	code\dhead.py	/^	def chkdir(self, oldir):$/;"	m	class:DHead
 dealPng	code\dhead.py	/^	def dealPng(self, src):$/;"	m	class:DHead
 getModname	code\dhead.py	/^	def getModname(self):$/;"	m	class:DHead
 Head	code\head.py	/^class Head(Packer):$/;"	c
@@ -65,7 +70,7 @@ genroot	code\packdata.py	/^	def genroot(self, modname):   #modname = commando ..
 getachive	code\packdata.py	/^	def getachive(self,modpath):$/;"	m	class:PackData
 getitems	code\packdata.py	/^	def getitems(self, ttxml,replace):$/;"	m	class:PackData
 getxy	code\packdata.py	/^	def getxy(self, path):$/;"	m	class:PackData
-savexml	code\packdata.py	/^	def savexml(self,fname):$/;"	m	class:PackData
+savexml	code\packdata.py	/^	def savexml(self,fname,encoding='utf-8'):$/;"	m	class:PackData
 wbackground	code\packdata.py	/^	def wbackground(self,xitem):$/;"	m	class:PackData
 wbody	code\packdata.py	/^	def wbody(self, pdata, dirname, replace):$/;"	m	class:PackData
 witem	code\packdata.py	/^	def witem(self,types='movie', iname='mc', lname='AnimationClip'):$/;"	m	class:PackData
@@ -85,25 +90,31 @@ formatDir	code\packer.py	/^	def formatDir(self):$/;"	m	class:Packer
 getEmptyStatus	code\packer.py	/^	def getEmptyStatus(self, subdir):$/;"	m	class:Packer
 mv2finalSource	code\packer.py	/^	def mv2finalSource(self, fdir, jsfl, fname=None):$/;"	m	class:Packer
 runAll	code\packer.py	/^	def runAll(self, jsfl, ttdir, fdir, flock):$/;"	m	class:Packer
-ttcutimg	code\packer.py	/^	def ttcutimg(self,src):$/;"	m	class:Packer
+ttcutimg	code\packer.py	/^	def ttcutimg(self,src,cutout=None):$/;"	m	class:Packer
 ttpack	code\packer.py	/^	def ttpack(self,src,out):     #src directory name such sas 1_2 , 2_x ...$/;"	m	class:Packer
 xml	code\packer.py	/^import xml.etree.ElementTree as et$/;"	i
+JobsDone	code\packexp.py	/^class JobsDone(PackExp):$/;"	c
 LastOpNotClean	code\packexp.py	/^class LastOpNotClean(PackExp):$/;"	c
 PackExp	code\packexp.py	/^class PackExp(Exception):$/;"	c
 PackFinish	code\packexp.py	/^class PackFinish(PackExp):$/;"	c
+PackNotSupported	code\packexp.py	/^class PackNotSupported(PackExp):$/;"	c
 SVNotFound	code\packexp.py	/^class SVNotFound(PackExp):$/;"	c
 SWFNotFound	code\packexp.py	/^class SWFNotFound(PackExp):$/;"	c
+__init__	code\packexp.py	/^	def __init__(self, fname):$/;"	m	class:PackNotSupported
 __init__	code\packexp.py	/^	def __init__(self, fpath):$/;"	m	class:SWFNotFound
 __init__	code\packexp.py	/^	def __init__(self, logs,fname='errors.txt'):$/;"	m	class:PackExp
+__init__	code\packexp.py	/^	def __init__(self, logs=''):$/;"	m	class:JobsDone
 __init__	code\packexp.py	/^	def __init__(self, logs=''):$/;"	m	class:LastOpNotClean
 __init__	code\packexp.py	/^	def __init__(self, startime, body='', logs=''):$/;"	m	class:PackFinish
 __init__	code\packexp.py	/^	def __init__(self,svnfile,types, mtype, fname,fpath, logs=''):$/;"	m	class:SVNotFound
 datetime	code\packexp.py	/^from datetime import datetime$/;"	i
 getPath	code\packexp.py	/^	def getPath(self):$/;"	m	class:PackExp
 mail	code\packexp.py	/^	def mail(self, subject, fname=None ):$/;"	m	class:PackExp
+numIns	code\packexp.py	/^	numIns = 0$/;"	v	class:PackExp
 wlog	code\packexp.py	/^	def wlog(self):$/;"	m	class:LastOpNotClean
 wlog	code\packexp.py	/^	def wlog(self):$/;"	m	class:PackExp
 wlog	code\packexp.py	/^	def wlog(self):$/;"	m	class:PackFinish
+wlog	code\packexp.py	/^	def wlog(self):$/;"	m	class:PackNotSupported
 wlog	code\packexp.py	/^	def wlog(self):$/;"	m	class:SVNotFound
 Preprocess	code\preprocess.py	/^class Preprocess(object):$/;"	c
 __init__	code\preprocess.py	/^	def __init__(self):$/;"	m	class:Preprocess
@@ -121,6 +132,7 @@ MIMEText	code\sendmail.py	/^from email.mime.text import MIMEText$/;"	i
 MYRECEIVER	code\sendmail.py	/^	MYRECEIVER = ['190971120@qq.com','2319406132@qq.com']$/;"	v
 MYRECEIVER	code\sendmail.py	/^	MYRECEIVER = ['2319406132@qq.com']$/;"	v
 SUCCBODY	code\sendmail.py	/^SUCCBODY = '打包%s完成, 本次打包开始时间为%s, %s完成打包 '$/;"	v
+SUCCBODYEXP	code\sendmail.py	/^SUCCBODYEXP = '打包%s完成, 本次打包开始时间为%s, %s完成打包, 但是出现错误，详见日志'$/;"	v
 SUCCSUBJECT	code\sendmail.py	/^SUCCSUBJECT = '打包完成'$/;"	v
 SVNOTFOUND	code\sendmail.py	/^SVNOTFOUND = '在svn.txt地址中无法找到类型为 %s-%s 位于 %s 名为 %s 的swf文件 '$/;"	v
 sendMail	code\sendmail.py	/^def sendMail(receiver,subject,fname=None,mbody=None,server=None):$/;"	f
@@ -145,7 +157,7 @@ msg	run.py	/^		msg = os.read(pipein, 32).decode()$/;"	v
 pipes	run.py	/^pipes = []$/;"	v
 pprocess	run.py	/^	pprocess = Preprocess()$/;"	v
 process	run.py	/^def process(pprocess, filenames, pipes, flock):$/;"	f
-run	run.py	/^def run(pack, jsfl, ttdir, fdir, flock, pipeout):$/;"	f
+run	run.py	/^def run(pack, jsfl, ttdir, fdir, flock, pipeout,modpath):$/;"	f
 startime	run.py	/^	startime = datetime.now().strftime('%Y-%m-%d %H:%M:%S')$/;"	v
 Cleanprocess	test.py	/^from code.cleanprocess import Cleanprocess$/;"	i
 PackExp	test.py	/^from code.packexp import PackExp$/;"	i

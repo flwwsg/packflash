@@ -29,6 +29,7 @@ Head	.\code\head.py	/^class Head(Packer):$/;"	c
 Head	.\run.py	/^from code.head import Head$/;"	i
 Image	.\code\packer.py	/^from PIL import Image, ImageDraw$/;"	i
 ImageDraw	.\code\packer.py	/^from PIL import Image, ImageDraw$/;"	i
+JobsDone	.\code\packexp.py	/^class JobsDone(PackExp):$/;"	c
 LASTOPNOTCLEAN	.\code\sendmail.py	/^LASTOPNOTCLEAN = '上次运行时程序意外中止，请查看tmp目录 '$/;"	v
 LastOpNotClean	.\code\packexp.py	/^class LastOpNotClean(PackExp):$/;"	c
 MIMEMultipart	.\code\sendmail.py	/^from email.mime.multipart import MIMEMultipart$/;"	i
@@ -41,11 +42,13 @@ PackData	.\code\packer.py	/^from code.packdata import PackData$/;"	i
 PackExp	.\code\packexp.py	/^class PackExp(Exception):$/;"	c
 PackExp	.\test.py	/^from code.packexp import PackExp$/;"	i
 PackFinish	.\code\packexp.py	/^class PackFinish(PackExp):$/;"	c
+PackNotSupported	.\code\packexp.py	/^class PackNotSupported(PackExp):$/;"	c
 Packer	.\code\packer.py	/^class Packer(object):$/;"	c
 Preprocess	.\code\preprocess.py	/^class Preprocess(object):$/;"	c
 Preprocess	.\run.py	/^from code.preprocess import Preprocess$/;"	i
 Preprocess	.\test.py	/^from code.preprocess import Preprocess $/;"	i
 SUCCBODY	.\code\sendmail.py	/^SUCCBODY = '打包%s完成, 本次打包开始时间为%s, %s完成打包 '$/;"	v
+SUCCBODYEXP	.\code\sendmail.py	/^SUCCBODYEXP = '打包%s完成, 本次打包开始时间为%s, %s完成打包, 但是出现错误，详见日志'$/;"	v
 SUCCSUBJECT	.\code\sendmail.py	/^SUCCSUBJECT = '打包完成'$/;"	v
 SVNOTFOUND	.\code\sendmail.py	/^SVNOTFOUND = '在svn.txt地址中无法找到类型为 %s-%s 位于 %s 名为 %s 的swf文件 '$/;"	v
 SVNotFound	.\code\packexp.py	/^class SVNotFound(PackExp):$/;"	c
@@ -62,8 +65,10 @@ __init__	.\code\dhead.py	/^	def __init__(self,mod):$/;"	m	class:DHead
 __init__	.\code\head.py	/^	def __init__(self,mod):$/;"	m	class:Head
 __init__	.\code\packdata.py	/^	def __init__(self, modpath):$/;"	m	class:PackData
 __init__	.\code\packer.py	/^	def __init__(self, modtype,fpath, modnamelocation=-1):$/;"	m	class:Packer
+__init__	.\code\packexp.py	/^	def __init__(self, fname):$/;"	m	class:PackNotSupported
 __init__	.\code\packexp.py	/^	def __init__(self, fpath):$/;"	m	class:SWFNotFound
 __init__	.\code\packexp.py	/^	def __init__(self, logs,fname='errors.txt'):$/;"	m	class:PackExp
+__init__	.\code\packexp.py	/^	def __init__(self, logs=''):$/;"	m	class:JobsDone
 __init__	.\code\packexp.py	/^	def __init__(self, logs=''):$/;"	m	class:LastOpNotClean
 __init__	.\code\packexp.py	/^	def __init__(self, startime, body='', logs=''):$/;"	m	class:PackFinish
 __init__	.\code\packexp.py	/^	def __init__(self,svnfile,types, mtype, fname,fpath, logs=''):$/;"	m	class:SVNotFound
@@ -72,6 +77,8 @@ __init__	.\code\soldier.py	/^	def __init__(self,mod):$/;"	m	class:Soldier
 baseName	.\code\packHelper.py	/^def baseName(path):$/;"	f
 chkPath	.\code\preprocess.py	/^	def chkPath(self, path):$/;"	m	class:Preprocess
 chkType	.\code\packHelper.py	/^def chkType(fn):$/;"	f
+chkdir	.\code\dbody.py	/^	def chkdir(self, oldir):$/;"	m	class:DBody
+chkdir	.\code\dhead.py	/^	def chkdir(self, oldir):$/;"	m	class:DHead
 clean	.\run.py	/^	clean = Cleanprocess()$/;"	v
 clean	.\test.py	/^	clean = Cleanprocess()$/;"	v
 cleanprocess	.\code\cleanprocess.py	/^	def cleanprocess(self,startime, body=''):$/;"	m	class:Cleanprocess
@@ -114,10 +121,12 @@ getModname	.\code\dhead.py	/^	def getModname(self):$/;"	m	class:DHead
 getPath	.\code\packexp.py	/^	def getPath(self):$/;"	m	class:PackExp
 getSvnAddr	.\code\cleanprocess.py	/^	def getSvnAddr(self, fname,types,mtype):$/;"	m	class:Cleanprocess
 getachive	.\code\packdata.py	/^	def getachive(self,modpath):$/;"	m	class:PackData
+getitems	.\code\bspdata.py	/^	def getitems(self, ttxml,replace):$/;"	m	class:BSPdata
 getitems	.\code\packdata.py	/^	def getitems(self, ttxml,replace):$/;"	m	class:PackData
 getpath	.\code\cleanprocess.py	/^	def getpath(self):$/;"	m	class:Cleanprocess
 getpath	.\code\preprocess.py	/^	def getpath(self):$/;"	m	class:Preprocess
 getsrc	.\code\preprocess.py	/^	def getsrc(self, src):$/;"	m	class:Preprocess
+getxy	.\code\bspdata.py	/^	def getxy(self, paths):$/;"	m	class:BSPdata
 getxy	.\code\packdata.py	/^	def getxy(self, path):$/;"	m	class:PackData
 helper	.\tmp.py	/^import code.packHelper as helper$/;"	i
 indent	.\code\packHelper.py	/^def indent(elem, level=0):$/;"	f
@@ -126,6 +135,7 @@ mail	.\code\packexp.py	/^	def mail(self, subject, fname=None ):$/;"	m	class:Pack
 mkDir	.\code\packHelper.py	/^def mkDir(paths):$/;"	f
 msg	.\run.py	/^		msg = os.read(pipein, 32).decode()$/;"	v
 mv2finalSource	.\code\packer.py	/^	def mv2finalSource(self, fdir, jsfl, fname=None):$/;"	m	class:Packer
+numIns	.\code\packexp.py	/^	numIns = 0$/;"	v	class:PackExp
 os	.\code\packHelper.py	/^import os $/;"	i
 os	.\tmp.py	/^import os $/;"	i
 pipes	.\run.py	/^pipes = []$/;"	v
@@ -136,11 +146,11 @@ process	.\run.py	/^def process(pprocess, filenames, pipes, flock):$/;"	f
 reFiles	.\code\preprocess.py	/^	def reFiles(self, dest):$/;"	m	class:Preprocess
 renameSubdir	.\code\building.py	/^	def renameSubdir(self, src):$/;"	m	class:Building
 rmDir	.\code\packHelper.py	/^def rmDir(dirnames):$/;"	f
-run	.\run.py	/^def run(pack, jsfl, ttdir, fdir, flock, pipeout):$/;"	f
+run	.\run.py	/^def run(pack, jsfl, ttdir, fdir, flock, pipeout,modpath):$/;"	f
 runAll	.\code\bsoldier.py	/^	def runAll(self, jsfl, ttdir, fdir, flock):$/;"	m	class:BSoldier
 runAll	.\code\building.py	/^	def runAll(self, jsfl, ttdir, fdir, flock):$/;"	m	class:Building
 runAll	.\code\packer.py	/^	def runAll(self, jsfl, ttdir, fdir, flock):$/;"	m	class:Packer
-savexml	.\code\packdata.py	/^	def savexml(self,fname):$/;"	m	class:PackData
+savexml	.\code\packdata.py	/^	def savexml(self,fname,encoding='utf-8'):$/;"	m	class:PackData
 scanDir	.\code\packHelper.py	/^def scanDir(root, withpath=True):$/;"	f
 scanFile	.\code\packHelper.py	/^def scanFile(root, withpath=True):$/;"	f
 scanFiles	.\code\packHelper.py	/^def scanFiles(root,withpath=True):$/;"	f
@@ -153,7 +163,8 @@ srcdir	.\tmp.py	/^srcdir = 'd:\/dev\/packflash\/src'$/;"	v
 startime	.\run.py	/^	startime = datetime.now().strftime('%Y-%m-%d %H:%M:%S')$/;"	v
 sys	.\code\packHelper.py	/^import sys$/;"	i
 threading	.\code\misc.py	/^import threading $/;"	i
-ttcutimg	.\code\packer.py	/^	def ttcutimg(self,src):$/;"	m	class:Packer
+ttcutimg	.\code\packer.py	/^	def ttcutimg(self,src,cutout=None):$/;"	m	class:Packer
+ttpack	.\code\bsoldier.py	/^	def ttpack(self,src,out):     #src directory name such sas 1_2 , 2_x ...$/;"	m	class:BSoldier
 ttpack	.\code\packer.py	/^	def ttpack(self,src,out):     #src directory name such sas 1_2 , 2_x ...$/;"	m	class:Packer
 wbackground	.\code\packdata.py	/^	def wbackground(self,xitem):$/;"	m	class:PackData
 wbody	.\code\packdata.py	/^	def wbody(self, pdata, dirname, replace):$/;"	m	class:PackData
@@ -162,6 +173,7 @@ wlabel	.\code\packdata.py	/^	def wlabel(self, dirname, replace, xitem):$/;"	m	cl
 wlog	.\code\packexp.py	/^	def wlog(self):$/;"	m	class:LastOpNotClean
 wlog	.\code\packexp.py	/^	def wlog(self):$/;"	m	class:PackExp
 wlog	.\code\packexp.py	/^	def wlog(self):$/;"	m	class:PackFinish
+wlog	.\code\packexp.py	/^	def wlog(self):$/;"	m	class:PackNotSupported
 wlog	.\code\packexp.py	/^	def wlog(self):$/;"	m	class:SVNotFound
 wpics	.\code\bspdata.py	/^	def wpics(self, dirname, replace, xitem):$/;"	m	class:BSPdata
 wpics	.\code\packdata.py	/^	def wpics(self, dirname, replace, xitem):$/;"	m	class:PackData

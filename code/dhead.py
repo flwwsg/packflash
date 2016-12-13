@@ -33,6 +33,7 @@ class DHead(Packer):
 						'5_attack_3','6_die_1','7_die_2','8_die_3'}
 		self.dealPng(mod)
 		Packer.__init__(self, 'towers_head',mod)
+		self.getModname()
 
 	def getModname(self):
 		tmp=dict()
@@ -46,17 +47,13 @@ class DHead(Packer):
 		realsudirs = scanDir(src)
 		for subdir in realsudirs:
 			empty = self.getEmptyStatus(subdir)
-
-			ipath = genPath(subdir, '1_idle')
-			mpath = genPath(subdir, '2_move')
 			apath = genPath(subdir, '3_attack_1')
 			a31 = '3_attack_1' in empty
-			
 			for path in empty:
 				dpath = genPath(subdir, '6_die_1')
-				dfirstpng = scanFile(dpath)[0]
 
 				#different from dbody
+				dfirstpng = scanFile(dpath)[0]
 				if path == '7_die_2':
 					copyFile(dfirstpng, dfirstpng.replace('6_die_1', '7_die_2'))
 				elif path == '8_die_3':
@@ -65,10 +62,18 @@ class DHead(Packer):
 
 				elif not a31:
 					afirstpng = scanFile(apath)[0]
+					path = self.chkdir(path)
 					dest = afirstpng.replace('3_attack_1',path)
 					copyFile(afirstpng, dest)
 
-			os.rename(ipath, ipath.replace('1_idle', '2_idle'))
-			os.rename(mpath, mpath.replace('2_move', '3_move'))
 			if not a31:
 				os.rename(apath, apath.replace('3_attack_1','1_attack_1'))
+
+	def chkdir(self, oldir):
+		tmp =dict()
+		tmp['1_idle'] = '2_idle'
+		tmp['2_move'] = '3_move'
+		if oldir in tmp.keys():
+			return tmp[oldir]
+		else:
+			return oldir

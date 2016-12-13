@@ -26,7 +26,10 @@ class Packer(object):
 		newtype = chkType(path)
 		if not newtype:
 			raise PackNotSupported(self.fpath)
-		newpath = path.split('#')[-1].split('-')[0]
+		if self.type == 'towers_body' or self.type == 'towers_head':
+			newpath = path.split('#')[0].split('-')[0]
+		else:
+			newpath = path.split('#')[-1].split('-')[0]
 		newpath = newpath+'-'+newtype
 
 		# for example modname = commando , modtype = mobs
