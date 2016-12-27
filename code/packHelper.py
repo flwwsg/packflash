@@ -82,6 +82,8 @@ def copyFiles(src, dest, recur=True,ignore=None):
 def copyFile(src, dest):
 	dirname = dirName(dest)
 	mkDir(dirname)
+	if os.path.isdir(dest):
+		dest = os.path.join(dest, baseName(src))
 	shutil.copyfile(src, dest)
 
 def genPath(root, path):

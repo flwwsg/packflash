@@ -32,7 +32,7 @@ class DHead(Packer):
 		self.fstatus = {'1_idle','2_move','3_attack_1','4_attack_2',
 						'5_attack_3','6_die_1','7_die_2','8_die_3'}
 		self.dealPng(mod)
-		Packer.__init__(self, 'towers_head',mod)
+		Packer.__init__(self, 'towers_head',mod,0)
 		self.getModname()
 
 	def getModname(self):
@@ -49,18 +49,24 @@ class DHead(Packer):
 			empty = self.getEmptyStatus(subdir)
 			apath = genPath(subdir, '3_attack_1')
 			a31 = '3_attack_1' in empty
+			d61 = '6_die_1' in empty
+			if d61:
+				dpath = genPath(subdir, '6_die_1')
+				mkDir(dpath)
+				self.creatTransparentPng(genPath(dpath,'6-die-1-transparent.png'))
+			dfirstpng = scanFile(dpath)[0]
 			for path in empty:
 				dpath = genPath(subdir, '6_die_1')
-
 				#different from dbody
-				dfirstpng = scanFile(dpath)[0]
-				if path == '7_die_2':
+				if path == '6_die_1':
+					continue
+				elif path == '7_die_2':
 					copyFile(dfirstpng, dfirstpng.replace('6_die_1', '7_die_2'))
 				elif path == '8_die_3':
 					copyFile(dfirstpng, dfirstpng.replace('6_die_1', '8_die_3'))
 				#end 
 
-				elif not a31:
+				elif not a31 :
 					afirstpng = scanFile(apath)[0]
 					path = self.chkdir(path)
 					dest = afirstpng.replace('3_attack_1',path)
@@ -73,6 +79,7 @@ class DHead(Packer):
 		tmp =dict()
 		tmp['1_idle'] = '2_idle'
 		tmp['2_move'] = '3_move'
+		tmp['3_attack_1'] = '1_attack_1'
 		if oldir in tmp.keys():
 			return tmp[oldir]
 		else:

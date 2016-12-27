@@ -26,10 +26,7 @@ class Packer(object):
 		newtype = chkType(path)
 		if not newtype:
 			raise PackNotSupported(self.fpath)
-		if self.type == 'towers_body' or self.type == 'towers_head':
-			newpath = path.split('#')[0].split('-')[0]
-		else:
-			newpath = path.split('#')[-1].split('-')[0]
+		newpath = path.split('#')[self.modnamelocation].split('-')[0]
 		newpath = newpath+'-'+newtype
 
 		# for example modname = commando , modtype = mobs
@@ -167,3 +164,8 @@ class Packer(object):
 			outdir = dirName(out)
 			mkDir(outdir)
 			img2.save(out)
+
+	@classmethod
+	def creatTransparentPng(self, out):
+		img = Image.new('RGBA', (512, 512))
+		img.save(out, 'png')
