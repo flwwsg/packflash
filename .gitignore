@@ -4,3 +4,6 @@ src/
 finalsource/
 logs/
 src2/
+.tags*
+startcmd.bat
+__pycache__/
