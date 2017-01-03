@@ -8,6 +8,7 @@ import xml.etree.ElementTree as et
 from code.packdata import PackData
 from code.cleanprocess import Cleanprocess
 from code.packexp import *
+from time import sleep
 
 class Packer(object):
 	"""packing pictures for flash"""
@@ -110,6 +111,7 @@ class Packer(object):
 			if not os.path.exists(location):
 				raise SWFNotFound(location)
 			clean.copy2SVN(location, self.type, self.modtype,self.fpath)
+			sleep(10)
 
 	@classmethod
 	def ttpack(self,src,out):     #src directory name such sas 1_2 , 2_x ...

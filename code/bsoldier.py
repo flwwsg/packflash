@@ -5,6 +5,8 @@
 from code.packer import *
 # from code.soldier import Soldier
 from code.bspdata import BSPdata
+from time import sleep
+
 
 class BSoldier(Packer):
 	
@@ -51,6 +53,7 @@ class BSoldier(Packer):
 			if not os.path.exists(location):
 				raise SWFNotFound(location)
 			clean.copy2SVN(location, self.type, self.modtype,self.fpath)
+			sleep(10)
 
 	@classmethod
 	def ttpack(self,src,out):     #src directory name such sas 1_2 , 2_x ...

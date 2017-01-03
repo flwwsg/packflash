@@ -5,6 +5,7 @@
 
 from code.packHelper import *
 from code.packer import *
+from time import sleep
 
 class Building(Packer):
 	def __init__(self, mod):
@@ -45,3 +46,4 @@ class Building(Packer):
 			with flock:
 				os.system(fpath[:-3]+'jsfl')
 				location = self.mv2finalSource(fdir, jsfl, fname)
+				sleep(10)
